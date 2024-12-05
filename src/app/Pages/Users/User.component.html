@@ -1,0 +1,69 @@
+<c-row>
+  <c-col sm="5">
+    <h4 class="card-title mb-0" id="traffic">Users</h4>
+  </c-col>
+  <c-col class="d-none d-md-block" sm="7">
+    <button cButton class="float-end" color="primary" aria-label="Download">
+      <svg cIcon name="cilCloudDownload"></svg>
+      Add User
+    </button>
+  </c-col>
+</c-row>
+<c-card class="my-2">
+    <table  borderless cTable hover class="mb-0 ">
+      <thead >
+        <tr>
+          <th class="bg-body-tertiary text-center ">
+            <svg cIcon name="cilPeople"></svg>
+          </th>
+          <th class="bg-body-tertiary">Student</th>
+          <th class="bg-body-tertiary text-center">Country</th>
+          <!-- <th class="bg-body-tertiary">Usage</th> -->
+          <th class="bg-body-tertiary text-center">Payment Method</th>
+          <th class="bg-body-tertiary">Activity</th>
+          <th class="bg-body-tertiary">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (user of users; track user.name; let i = $index) {
+        <tr>
+          <td class="text-center">
+            <c-avatar [size]="'md'" src="{{ user.avatar }}" status="{{ user.status }}" />
+          </td>
+          <td>
+            <div>{{ user.name }}</div>
+            <div class="small text-body-secondary text-nowrap">
+              <span>
+                {{ user.state }} | Registered: {{ user.registered }}
+              </span>
+            </div>
+          </td>
+          <td class="text-center">
+            <svg cIcon id="{{ user.country + user.name }}" name="cif{{ user.country }}" size="xl"
+              title="{{ user.country }}"></svg>
+          </td>
+          <td class="text-center">
+            <svg cIcon name="cibCc{{ user.payment }}" size="xl"></svg>
+          </td>
+          <td>
+            <div class="small text-body-secondary">Last login</div>
+            <div class="fw-semibold text-nowrap">{{ user.activity }}</div>
+          </td>
+          <td>
+            <!-- Example single danger button -->
+            <c-dropdown>
+              <button cButton cDropdownToggle color="secondary">
+               Actions
+              </button>
+              <ul cDropdownMenu>
+                <li><a [routerLink]="[]" cDropdownItem>Action</a></li>
+                <li><a [routerLink]="[]" cDropdownItem>Another action</a></li>
+                <li><a [routerLink]="[]" cDropdownItem>Something else here</a></li>
+              </ul>
+            </c-dropdown>
+          </td>
+        </tr>
+        }
+      </tbody>
+    </table>
+</c-card>

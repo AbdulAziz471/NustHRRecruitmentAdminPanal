@@ -1,0 +1,65 @@
+<div class="bg-light dark:bg-transparent min-vh-100 d-flex flex-row align-items-center">
+  <c-container breakpoint="md">
+    <c-row class="justify-content-center">
+      <c-col lg="10" xl="8">
+        <c-card-group>
+          <c-card [ngStyle]="{'minWidth.%': 44}" class="text-white bg-primary ">
+            <div class="text-center">
+              <img style="max-width: 100%;" src="../../../../assets/brand/nust.jpg" alt="">
+            </div>
+          </c-card>
+          <c-card class="p-4">
+            <c-card-body >
+              <img style="max-width: 100px ; width: 100%;" src="../../../../assets/images/national-university.png" alt="">
+              <form cForm [formGroup]="loginForm" (ngSubmit)="Login()">
+                <h1>Login</h1>
+                <p class="text-body-secondary">Sign In to your account</p>
+                <c-input-group class="mb-3">
+                  <span cInputGroupText>
+                    <svg cIcon name="cilUser"></svg>
+                  </span>
+                  <input formControlName="email" type="email" class="form-control" placeholder="Email"
+                    autoComplete="username" cFormControl />
+                </c-input-group>
+                <c-input-group class="mb-4">
+                  <span cInputGroupText>
+                    <svg cIcon name="cilLockLocked"></svg>
+                  </span>
+                  <input formControlName="password" [type]="showNewPassword ? 'text' : 'password'"
+                    autoComplete="password" cFormControl placeholder="Password" />
+                  <button type="button" (click)="toggleNewPassword()" class="input-group-text">
+                    <svg *ngIf="showNewPassword" class="w-6 h-6 text-white" aria-hidden="true"
+                      xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                      <path stroke="currentColor" stroke-width="2"
+                        d="M21 12c0 1.2-4.03 6-9 6s-9-4.8-9-6c0-1.2 4.03-6 9-6s9 4.8 9 6Z" />
+                      <path stroke="currentColor" stroke-width="2" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                    </svg>
+                    <svg *ngIf="!showNewPassword  " class="w-6 h-6     text-white" aria-hidden="true"
+                      xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                      <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M3.933 13.909A4.357 4.357 0 0 1 3 12c0-1 4-6 9-6m7.6 3.8A5.068 5.068 0 0 1 21 12c0 1-3 6-9 6-.314 0-.62-.014-.918-.04M5 19 19 5m-4 7a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                    </svg>
+                  </button>
+                </c-input-group>
+                <div class="text-danger mt-2" *ngIf="errorMessage">{{ errorMessage }}</div>
+                <c-row>
+                  <c-col xs="6">
+                    <button type="submit" [disabled]="isLoading" cButton class="px-4" color="primary">
+                      Login
+                    </button>
+                  </c-col>
+                  <c-col class="text-right" xs="6">
+                    <button cButton class="px-0" color="link" [active]="true" routerLink="/forgetPassword">
+                      Forgot password?
+                    </button>
+                  </c-col>
+                </c-row>
+              </form>
+            </c-card-body>
+          </c-card>
+         
+        </c-card-group>
+      </c-col>
+    </c-row>
+  </c-container>
+</div>
