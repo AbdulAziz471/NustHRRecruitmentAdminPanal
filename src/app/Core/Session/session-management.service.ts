@@ -18,11 +18,6 @@ export class SessionManagementService {
     email : '',
     confirmedEmail : false,
    });
-   public jobInfo: any = {  
-    JobId : '',
-    JobTitle : '',
-    JobDueDate : ''
-   };
   constructor() { }
   signOut(): void {
     window.sessionStorage.clear();
@@ -63,19 +58,6 @@ export class SessionManagementService {
     window.sessionStorage.removeItem('JobId');
     window.sessionStorage.removeItem('JobTitle');
     window.sessionStorage.removeItem('JobDueDate');
-  }
-  public getJob(): any {
-    this.jobInfo.JobId= window.sessionStorage.getItem('JobId');
-    this.jobInfo.JobTitle= window.sessionStorage.getItem('JobTitle');
-    this.jobInfo.JobDueDate= window.sessionStorage.getItem('JobDueDate');
-    if (this.jobInfo.JobId) {
-      this.jobInfo.JobId=JSON.parse(this.jobInfo.JobId);
-      this.jobInfo.JobTitle=JSON.parse(this.jobInfo.JobTitle);
-      this.jobInfo.JobDueDate=JSON.parse(this.jobInfo.JobDueDate);
-      return this.jobInfo;
-    }
-
-    return null;
   }
   public getUserInfoObservable() {
     return this.userInfo.asObservable();
