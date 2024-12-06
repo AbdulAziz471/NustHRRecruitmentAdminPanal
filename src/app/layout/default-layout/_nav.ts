@@ -15,4 +15,14 @@ export const navItems: INavData[] = [
     url: '/User',
     iconComponent: { name: 'cil-speedometer' },
   },
+  {
+    name: 'Roles',
+    url: '/roles',
+    iconComponent: { name: 'cil-speedometer' },
+  },
+  {
+    name: 'PageRoles',
+    url: '/pageroles',
+    iconComponent: { name: 'cil-speedometer' },
+  },
 ];

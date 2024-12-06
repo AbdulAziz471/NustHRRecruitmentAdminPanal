@@ -1,4 +1,9 @@
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
+import { IconModule } from '@coreui/icons-angular';
+import { OffcanvasModule } from '@coreui/angular';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { SpinnerModule } from '@coreui/angular';
+import {PageRolesComponent} from '../app/Pages/pageRoles/pageRoles.component'
 import {
   AfterContentInit,
   AfterViewInit,
@@ -77,7 +82,8 @@ import {
   SidebarToggleDirective,
   ThemeDirective
 } from '@coreui/angular';
-import {UserComponent} from './Pages/Users/User.component'
+import {UserComponent} from './Pages/users/User.component'
+import {RolesComponent} from './Pages/roles/roles.component'
 @NgModule({
   declarations: [
     AppComponent,
@@ -86,9 +92,14 @@ import {UserComponent} from './Pages/Users/User.component'
     DefaultLayoutComponent,
     DefaultHeaderComponent,
     DefaultFooterComponent,
-    UserComponent
+    UserComponent,
+    RolesComponent,
+    PageRolesComponent
  ],
   imports: [
+    BrowserAnimationsModule,
+    OffcanvasModule,SpinnerModule,
+    IconModule,
     SidebarModule,
     NgScrollbar,
     RouterLink, 
@@ -122,8 +133,8 @@ import {UserComponent} from './Pages/Users/User.component'
     CommonModule,CardModule,BrowserModule,
     TextColorDirective,ContainerComponent,CardGroupComponent , FormDirective, InputGroupComponent, InputGroupTextDirective, FormControlDirective ,CardComponent, CardBodyComponent, RowComponent, ColComponent, ButtonDirective, IconDirective, ReactiveFormsModule, ButtonGroupComponent, FormCheckLabelDirective, ChartjsComponent, NgStyle, CardFooterComponent, GutterDirective, ProgressBarDirective, ProgressComponent, CardHeaderComponent, TableDirective, AvatarComponent
   ],
-
   providers: [
+    IconSetService,
     Config,
     AuthService,
     IconSetService,

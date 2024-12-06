@@ -45,7 +45,12 @@
                 <c-row>
                   <c-col xs="6">
                     <button type="submit" [disabled]="isLoading" cButton class="px-4" color="primary">
-                      Login
+                      <ng-container *ngIf="!isLoading; else loading">
+                        Login
+                      </ng-container>
+                      <ng-template #loading>
+                        <c-spinner size="sm" color="light"></c-spinner>
+                      </ng-template>
                     </button>
                   </c-col>
                   <c-col class="text-right" xs="6">

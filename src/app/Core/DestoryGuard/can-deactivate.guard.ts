@@ -1,5 +1,4 @@
 import { ActivatedRouteSnapshot, CanDeactivateFn, RouterStateSnapshot } from '@angular/router';
-import { MyApplicationComponent } from '../../Pages/my-application/my-application.component';
 
 export interface CanComponentDeactivate {
   canExit: () => boolean;

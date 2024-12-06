@@ -8,20 +8,19 @@ import {
   Component,
   Directive,
   ElementRef,
-  HostBinding,
   Injectable,
-  Input,
   NgModule,
   Optional,
   Renderer2,
   SkipSelf,
-  ViewChild,
   afterNextRender,
   computed,
+  effect,
   inject,
+  input,
   setClassMetadata,
   signal,
-  ɵɵInputTransformsFeature,
+  viewChild,
   ɵɵStandaloneFeature,
   ɵɵadvance,
   ɵɵattribute,
@@ -32,20 +31,18 @@ import {
   ɵɵdefineInjectable,
   ɵɵdefineInjector,
   ɵɵdefineNgModule,
-  ɵɵdirectiveInject,
   ɵɵelement,
   ɵɵelementEnd,
   ɵɵelementStart,
   ɵɵhostProperty,
   ɵɵinject,
-  ɵɵloadQuery,
   ɵɵnamespaceSVG,
   ɵɵnextContext,
   ɵɵproperty,
-  ɵɵqueryRefresh,
+  ɵɵqueryAdvance,
   ɵɵsanitizeHtml,
   ɵɵtemplate,
-  ɵɵviewQuery
+  ɵɵviewQuerySignal
 } from "./chunk-5SQEDC4B.js";
 import {
   __privateAdd,
@@ -61,9 +58,10 @@ function IconComponent_Conditional_0_Template(rf, ctx) {
     ɵɵelement(0, "svg", 1, 0);
   }
   if (rf & 2) {
+    let tmp_7_0;
     const ctx_r0 = ɵɵnextContext();
-    ɵɵproperty("innerHtml", ctx_r0.innerHtml(), ɵɵsanitizeHtml)("ngClass", ctx_r0.computedClasses)("cHtmlAttr", ctx_r0.attributes);
-    ɵɵattribute("width", ctx_r0.width)("height", ctx_r0.height || ctx_r0.width)("viewBox", ctx_r0.viewBox);
+    ɵɵproperty("innerHtml", ctx_r0.innerHtml(), ɵɵsanitizeHtml)("ngClass", ctx_r0.computedClasses())("cHtmlAttr", ctx_r0.attributes());
+    ɵɵattribute("width", ctx_r0.width())("height", ctx_r0.height() || ctx_r0.width())("viewBox", (tmp_7_0 = ctx_r0.viewBox()) !== null && tmp_7_0 !== void 0 ? tmp_7_0 : ctx_r0.scale());
   }
 }
 function IconComponent_Conditional_1_Template(rf, ctx) {
@@ -75,28 +73,29 @@ function IconComponent_Conditional_1_Template(rf, ctx) {
   }
   if (rf & 2) {
     const ctx_r0 = ɵɵnextContext();
-    ɵɵproperty("ngClass", ctx_r0.computedClasses)("cHtmlAttr", ctx_r0.attributes);
-    ɵɵattribute("width", ctx_r0.width)("height", ctx_r0.height || ctx_r0.width);
+    ɵɵproperty("ngClass", ctx_r0.computedClasses())("cHtmlAttr", ctx_r0.attributes());
+    ɵɵattribute("width", ctx_r0.width())("height", ctx_r0.height() || ctx_r0.width());
     ɵɵadvance(2);
-    ɵɵattribute("href", ctx_r0.use);
+    ɵɵattribute("href", ctx_r0.use());
   }
 }
+var _iconNames, _icons;
 var _IconSetService = class _IconSetService {
   constructor() {
-    this._iconNames = {};
-    this._icons = {};
+    __privateAdd(this, _iconNames, {});
+    __privateAdd(this, _icons, {});
   }
   get iconNames() {
-    return this._iconNames;
+    return __privateGet(this, _iconNames);
   }
   get icons() {
-    return this._icons;
+    return __privateGet(this, _icons);
   }
   set icons(iconSet) {
     for (const iconsKey in iconSet) {
-      this._iconNames[iconsKey] = iconsKey;
+      __privateGet(this, _iconNames)[iconsKey] = iconsKey;
     }
-    this._icons = iconSet;
+    __privateSet(this, _icons, iconSet);
   }
   getIcon(name) {
     const icon = this.icons[name];
@@ -106,6 +105,8 @@ var _IconSetService = class _IconSetService {
     return this.icons[name];
   }
 };
+_iconNames = new WeakMap();
+_icons = new WeakMap();
 _IconSetService.ɵfac = function IconSetService_Factory(__ngFactoryType__) {
   return new (__ngFactoryType__ || _IconSetService)();
 };
@@ -171,121 +172,109 @@ function toCamelCase(value) {
 function transformName(value) {
   return value && value.includes("-") ? toCamelCase(value) : value;
 }
-var _elementRef, _sanitizer, _iconSet, _content, _name;
+var _sanitizer, _iconSet, _titleCode;
 var _IconDirective = class _IconDirective {
   constructor() {
-    __privateAdd(this, _elementRef);
     __privateAdd(this, _sanitizer);
     __privateAdd(this, _iconSet);
-    __privateAdd(this, _content);
-    __privateAdd(this, _name);
-    __privateSet(this, _elementRef, inject(ElementRef));
+    __privateAdd(this, _titleCode);
     __privateSet(this, _sanitizer, inject(DomSanitizer));
     __privateSet(this, _iconSet, inject(IconSetService));
-    __privateSet(this, _content, signal(""));
-    this.size = "";
-    __privateSet(this, _name, signal(""));
-    this.ariaHidden = true;
-    this.xmlns = "http://www.w3.org/2000/svg";
-    this.pointerEvents = "none";
-    this.role = "img";
-    this.innerHtml = computed(() => {
-      const code = Array.isArray(this.code()) ? this.code()[1] ?? this.code()[0] ?? "" : this.code() || "";
-      return __privateGet(this, _sanitizer).bypassSecurityTrustHtml(this.titleCode + code || "");
+    this.content = input(void 0, {
+      alias: "cIcon"
     });
+    this.customClasses = input();
+    this.size = input("");
+    this.title = input();
+    this.height = input();
+    this.width = input();
+    this.name = input("", {
+      transform: transformName
+    });
+    this.viewBoxInput = input(void 0, {
+      alias: "viewBox"
+    });
+    this.xmlns = input("http://www.w3.org/2000/svg");
+    this.pointerEvents = input("none", {
+      alias: "pointer-events"
+    });
+    this.role = input("img");
+    this.hostClasses = computed(() => {
+      const computedSize = this.computedSize();
+      const classes = {
+        icon: true,
+        [`icon-${computedSize}`]: !!computedSize
+      };
+      return this.customClasses() ?? classes;
+    });
+    this.viewBox = computed(() => {
+      return this.viewBoxInput() ?? this.scale();
+    });
+    this.innerHtml = computed(() => {
+      const codeVal = this.code();
+      const code = Array.isArray(codeVal) ? codeVal?.[1] ?? codeVal?.[0] ?? "" : codeVal || "";
+      return __privateGet(this, _sanitizer).bypassSecurityTrustHtml(__privateGet(this, _titleCode).call(this) + code || "");
+    });
+    __privateSet(this, _titleCode, computed(() => {
+      return this.title() ? `<title>${this.title()}</title>` : "";
+    }));
     this.code = computed(() => {
-      if (__privateGet(this, _content).call(this)) {
-        return __privateGet(this, _content).call(this);
+      const content = this.content();
+      if (content) {
+        return content;
       }
-      if (__privateGet(this, _iconSet) && __privateGet(this, _name).call(this)) {
-        return __privateGet(this, _iconSet).getIcon(__privateGet(this, _name).call(this));
+      const name = this.name();
+      if (__privateGet(this, _iconSet) && name) {
+        return __privateGet(this, _iconSet).getIcon(name);
       }
-      if (__privateGet(this, _name).call(this) && !__privateGet(this, _iconSet)?.icons[__privateGet(this, _name).call(this)]) {
-        console.warn(`c-icon component: icon name '${__privateGet(this, _name).call(this)}' does not exist for IconSet service. To use icon by 'name' prop you need to add it to IconSet service. 
-`, __privateGet(this, _name).call(this));
+      if (name && !__privateGet(this, _iconSet)?.icons[name]) {
+        console.warn(`cIcon directive: The '${name}' icon not found. Add it to the IconSet service for use with the 'name' property. 
+`, name);
       }
       return "";
     });
     this.scale = computed(() => {
-      return Array.isArray(this.code()) && this.code().length > 1 ? `0 0 ${this.code()[0]}` : "0 0 64 64";
+      return Array.isArray(this.code()) && (this.code()?.length ?? 0) > 1 ? `0 0 ${this.code()?.[0]}` : "0 0 64 64";
     });
-    afterNextRender({
-      write: () => {
-        __privateGet(this, _elementRef).nativeElement.innerHTML = this.innerHtml();
-      }
+    this.computedSize = computed(() => {
+      const addCustom = !this.size() && (this.width() || this.height());
+      return this.size() === "custom" || addCustom ? "custom-size" : this.size();
     });
-  }
-  set content(value) {
-    __privateGet(this, _content).set(value);
-  }
-  set name(value) {
-    __privateGet(this, _name).set(value);
-  }
-  get name() {
-    return __privateGet(this, _name).call(this);
-  }
-  set viewBox(viewBox) {
-    this._viewBox = viewBox;
-  }
-  get viewBox() {
-    return this._viewBox ?? this.scale();
-  }
-  get hostClasses() {
-    return this.computedClasses;
-  }
-  get bindInnerHtml() {
-    return this.innerHtml();
-  }
-  get titleCode() {
-    return this.title ? `<title>${this.title}</title>` : "";
-  }
-  get computedSize() {
-    const addCustom = !this.size && (this.width || this.height);
-    return this.size === "custom" || addCustom ? "custom-size" : this.size;
-  }
-  get computedClasses() {
-    const classes = {
-      icon: true,
-      [`icon-${this.computedSize}`]: !!this.computedSize
-    };
-    return this.customClasses ?? classes;
   }
 };
-_elementRef = new WeakMap();
 _sanitizer = new WeakMap();
 _iconSet = new WeakMap();
-_content = new WeakMap();
-_name = new WeakMap();
+_titleCode = new WeakMap();
 _IconDirective.ɵfac = function IconDirective_Factory(__ngFactoryType__) {
   return new (__ngFactoryType__ || _IconDirective)();
 };
 _IconDirective.ɵdir = ɵɵdefineDirective({
   type: _IconDirective,
   selectors: [["svg", "cIcon", ""]],
+  hostAttrs: ["ngSkipHydration", "true"],
   hostVars: 8,
   hostBindings: function IconDirective_HostBindings(rf, ctx) {
     if (rf & 2) {
-      ɵɵhostProperty("innerHtml", ctx.bindInnerHtml, ɵɵsanitizeHtml);
-      ɵɵattribute("viewBox", ctx.viewBox)("aria-hidden", ctx.ariaHidden)("xmlns", ctx.xmlns)("pointer-events", ctx.pointerEvents)("role", ctx.role);
-      ɵɵclassMap(ctx.hostClasses);
+      ɵɵhostProperty("innerHtml", ctx.innerHtml(), ɵɵsanitizeHtml);
+      ɵɵattribute("viewBox", ctx.viewBox())("xmlns", ctx.xmlns())("pointer-events", ctx.pointerEvents())("role", ctx.role())("aria-hidden", true);
+      ɵɵclassMap(ctx.hostClasses());
     }
   },
   inputs: {
-    content: [0, "cIcon", "content"],
-    customClasses: "customClasses",
-    size: "size",
-    title: "title",
-    height: "height",
-    width: "width",
-    name: [2, "name", "name", transformName],
-    viewBox: "viewBox",
-    xmlns: "xmlns",
-    pointerEvents: [0, "pointer-events", "pointerEvents"],
-    role: "role"
+    content: [1, "cIcon", "content"],
+    customClasses: [1, "customClasses"],
+    size: [1, "size"],
+    title: [1, "title"],
+    height: [1, "height"],
+    width: [1, "width"],
+    name: [1, "name"],
+    viewBoxInput: [1, "viewBox", "viewBoxInput"],
+    xmlns: [1, "xmlns"],
+    pointerEvents: [1, "pointer-events", "pointerEvents"],
+    role: [1, "role"]
   },
   exportAs: ["cIcon"],
-  standalone: true,
-  features: [ɵɵInputTransformsFeature]
+  standalone: true
 });
 var IconDirective = _IconDirective;
 (() => {
@@ -294,115 +283,68 @@ var IconDirective = _IconDirective;
     args: [{
       exportAs: "cIcon",
       selector: "svg[cIcon]",
-      standalone: true
-    }]
-  }], () => [], {
-    content: [{
-      type: Input,
-      args: ["cIcon"]
-    }],
-    customClasses: [{
-      type: Input
-    }],
-    size: [{
-      type: Input
-    }],
-    title: [{
-      type: Input
-    }],
-    height: [{
-      type: Input
-    }],
-    width: [{
-      type: Input
-    }],
-    name: [{
-      type: Input,
-      args: [{
-        transform: transformName
-      }]
-    }],
-    viewBox: [{
-      type: HostBinding,
-      args: ["attr.viewBox"]
-    }, {
-      type: Input
-    }],
-    ariaHidden: [{
-      type: HostBinding,
-      args: ["attr.aria-hidden"]
-    }],
-    xmlns: [{
-      type: HostBinding,
-      args: ["attr.xmlns"]
-    }, {
-      type: Input
-    }],
-    pointerEvents: [{
-      type: HostBinding,
-      args: ["attr.pointer-events"]
-    }, {
-      type: Input,
-      args: ["pointer-events"]
-    }],
-    role: [{
-      type: HostBinding,
-      args: ["attr.role"]
-    }, {
-      type: Input
-    }],
-    hostClasses: [{
-      type: HostBinding,
-      args: ["class"]
-    }],
-    bindInnerHtml: [{
-      type: HostBinding,
-      args: ["innerHtml"]
-    }]
-  });
-})();
-var _HtmlAttributesDirective = class _HtmlAttributesDirective {
-  constructor(renderer, el) {
-    this.renderer = renderer;
-    this.el = el;
-  }
-  ngOnInit() {
-    const attribs = this.cHtmlAttr;
-    for (const attr in attribs) {
-      if (attr === "style" && typeof attribs[attr] === "object") {
-        this.setStyle(attribs[attr]);
-      } else if (attr === "class") {
-        this.addClass(attribs[attr]);
-      } else {
-        this.setAttrib(attr, attribs[attr]);
+      standalone: true,
+      host: {
+        ngSkipHydration: "true",
+        "[innerHtml]": "innerHtml()",
+        "[class]": "hostClasses()",
+        "[attr.viewBox]": "viewBox()",
+        "[attr.xmlns]": "xmlns()",
+        "[attr.pointer-events]": "pointerEvents()",
+        "[attr.role]": "role()",
+        "[attr.aria-hidden]": "true"
       }
-    }
+    }]
+  }], null, null);
+})();
+var _renderer, _elementRef;
+var _HtmlAttributesDirective = class _HtmlAttributesDirective {
+  constructor() {
+    __privateAdd(this, _renderer);
+    __privateAdd(this, _elementRef);
+    this.cHtmlAttr = input();
+    __privateSet(this, _renderer, inject(Renderer2));
+    __privateSet(this, _elementRef, inject(ElementRef));
+    this.attrEffect = effect(() => {
+      const attribs = this.cHtmlAttr();
+      for (const attr in attribs) {
+        if (attr === "style" && typeof attribs[attr] === "object") {
+          this.setStyle(attribs[attr]);
+        } else if (attr === "class") {
+          this.addClass(attribs[attr]);
+        } else {
+          this.setAttrib(attr, attribs[attr]);
+        }
+      }
+    });
   }
   setStyle(styles) {
     for (const style in styles) {
       if (style) {
-        this.renderer.setStyle(this.el.nativeElement, style, styles[style]);
+        __privateGet(this, _renderer).setStyle(__privateGet(this, _elementRef).nativeElement, style, styles[style]);
       }
     }
   }
   addClass(classes) {
     const classArray = Array.isArray(classes) ? classes : classes.split(" ");
     classArray.filter((element) => element.length > 0).forEach((element) => {
-      this.renderer.addClass(this.el.nativeElement, element);
+      __privateGet(this, _renderer).addClass(__privateGet(this, _elementRef).nativeElement, element);
     });
   }
   setAttrib(key, value) {
-    value !== null ? this.renderer.setAttribute(this.el.nativeElement, key, value) : this.renderer.removeAttribute(this.el.nativeElement, key);
+    value !== null ? __privateGet(this, _renderer).setAttribute(__privateGet(this, _elementRef).nativeElement, key, value) : __privateGet(this, _renderer).removeAttribute(__privateGet(this, _elementRef).nativeElement, key);
   }
 };
+_renderer = new WeakMap();
+_elementRef = new WeakMap();
 _HtmlAttributesDirective.ɵfac = function HtmlAttributesDirective_Factory(__ngFactoryType__) {
-  return new (__ngFactoryType__ || _HtmlAttributesDirective)(ɵɵdirectiveInject(Renderer2), ɵɵdirectiveInject(ElementRef));
+  return new (__ngFactoryType__ || _HtmlAttributesDirective)();
 };
 _HtmlAttributesDirective.ɵdir = ɵɵdefineDirective({
   type: _HtmlAttributesDirective,
   selectors: [["", "cHtmlAttr", ""]],
   inputs: {
-    cHtmlAttr: "cHtmlAttr"
+    cHtmlAttr: [1, "cHtmlAttr"]
   },
   exportAs: ["cHtmlAttr"],
   standalone: true
@@ -416,103 +358,103 @@ var HtmlAttributesDirective = _HtmlAttributesDirective;
       exportAs: "cHtmlAttr",
       standalone: true
     }]
-  }], () => [{
-    type: Renderer2
-  }, {
-    type: ElementRef
-  }], {
-    cHtmlAttr: [{
-      type: Input
-    }]
-  });
+  }], null, null);
 })();
-var _renderer, _elementRef2, _sanitizer2, _iconSet2, _content2, _name2;
+var _renderer2, _elementRef2, _sanitizer2, _iconSet2, _hostElement, _titleCode2;
 var _IconComponent = class _IconComponent {
   constructor() {
-    __privateAdd(this, _renderer);
+    __privateAdd(this, _renderer2);
     __privateAdd(this, _elementRef2);
     __privateAdd(this, _sanitizer2);
     __privateAdd(this, _iconSet2);
-    __privateAdd(this, _content2);
-    __privateAdd(this, _name2);
-    __privateSet(this, _renderer, inject(Renderer2));
+    __privateAdd(this, _hostElement);
+    __privateAdd(this, _titleCode2);
+    __privateSet(this, _renderer2, inject(Renderer2));
     __privateSet(this, _elementRef2, inject(ElementRef));
     __privateSet(this, _sanitizer2, inject(DomSanitizer));
     __privateSet(this, _iconSet2, inject(IconSetService));
-    __privateSet(this, _content2, signal(""));
-    this.attributes = {
+    __privateSet(this, _hostElement, signal(void 0));
+    this.content = input();
+    this.attributes = input({
       role: "img"
-    };
-    this.size = "";
-    this.use = "";
-    __privateSet(this, _name2, signal(""));
-    this.innerHtml = computed(() => {
-      const code = Array.isArray(this.code()) ? this.code()[1] ?? this.code()[0] ?? "" : this.code() || "";
-      return __privateGet(this, _sanitizer2).bypassSecurityTrustHtml(this.titleCode + code || "");
     });
+    this.customClasses = input();
+    this.size = input("");
+    this.title = input();
+    this.use = input("");
+    this.height = input();
+    this.width = input();
+    this.name = input("", {
+      transform: transformName
+    });
+    this.viewBoxInput = input(void 0, {
+      alias: "viewBox"
+    });
+    this.svgElementRef = viewChild("svgElement");
+    this.svgElementEffect = effect(() => {
+      const svgElementRef = this.svgElementRef();
+      const hostElement = __privateGet(this, _hostElement).call(this)?.nativeElement;
+      if (svgElementRef && hostElement) {
+        const svgElement = svgElementRef.nativeElement;
+        hostElement.classList?.values()?.forEach((item) => {
+          __privateGet(this, _renderer2).addClass(svgElement, item);
+        });
+        const parentElement = __privateGet(this, _renderer2).parentNode(hostElement);
+        __privateGet(this, _renderer2).insertBefore(parentElement, svgElement, hostElement);
+        __privateGet(this, _renderer2).removeChild(parentElement, hostElement);
+      }
+    });
+    this.viewBox = computed(() => {
+      return this.viewBoxInput() ?? this.scale();
+    });
+    this.innerHtml = computed(() => {
+      const codeVal = this.code();
+      const code = Array.isArray(codeVal) ? codeVal?.[1] ?? codeVal?.[0] ?? "" : codeVal || "";
+      return __privateGet(this, _sanitizer2).bypassSecurityTrustHtml(__privateGet(this, _titleCode2).call(this) + code || "");
+    });
+    __privateSet(this, _titleCode2, computed(() => {
+      return this.title() ? `<title>${this.title()}</title>` : "";
+    }));
     this.code = computed(() => {
-      if (__privateGet(this, _content2).call(this)) {
-        return __privateGet(this, _content2).call(this);
+      const content = this.content();
+      if (content) {
+        return content;
       }
-      if (__privateGet(this, _iconSet2) && __privateGet(this, _name2).call(this)) {
-        return __privateGet(this, _iconSet2).getIcon(__privateGet(this, _name2).call(this));
+      const name = this.name();
+      if (__privateGet(this, _iconSet2) && name) {
+        return __privateGet(this, _iconSet2).getIcon(name);
       }
-      if (__privateGet(this, _name2).call(this) && !__privateGet(this, _iconSet2)?.icons[__privateGet(this, _name2).call(this)]) {
-        console.warn(`c-icon component: icon name '${__privateGet(this, _name2).call(this)}' does not exist for IconSet service. To use icon by 'name' prop you need to add it to IconSet service. 
-`, __privateGet(this, _name2).call(this));
+      if (name && !__privateGet(this, _iconSet2)?.icons[name]) {
+        console.warn(`c-icon component: The '${name}' icon not found. Add it to the IconSet service for use with the 'name' property. 
+`, name);
       }
       return "";
     });
     this.scale = computed(() => {
-      return Array.isArray(this.code()) && this.code().length > 1 ? `0 0 ${this.code()[0]}` : "0 0 64 64";
+      return Array.isArray(this.code()) && (this.code()?.length ?? 0) > 1 ? `0 0 ${this.code()?.[0]}` : "0 0 64 64";
     });
-    __privateGet(this, _renderer).setStyle(__privateGet(this, _elementRef2).nativeElement, "display", "none");
-  }
-  set content(value) {
-    __privateGet(this, _content2).set(value);
-  }
-  set name(value) {
-    __privateGet(this, _name2).set(value);
-  }
-  get name() {
-    return __privateGet(this, _name2).call(this);
-  }
-  set viewBox(viewBox) {
-    this._viewBox = viewBox;
-  }
-  get viewBox() {
-    return this._viewBox ?? this.scale();
-  }
-  ngAfterViewInit() {
-    __privateGet(this, _elementRef2).nativeElement.classList.forEach((item) => {
-      __privateGet(this, _renderer).addClass(this.svgElementRef.nativeElement, item);
+    this.computedSize = computed(() => {
+      const addCustom = !this.size() && (this.width() || this.height());
+      return this.size() === "custom" || addCustom ? "custom-size" : this.size();
     });
-    const parentElement = __privateGet(this, _renderer).parentNode(__privateGet(this, _elementRef2).nativeElement);
-    const svgElement = this.svgElementRef.nativeElement;
-    __privateGet(this, _renderer).insertBefore(parentElement, svgElement, __privateGet(this, _elementRef2).nativeElement);
-    __privateGet(this, _renderer).removeChild(parentElement, __privateGet(this, _elementRef2).nativeElement);
-  }
-  get titleCode() {
-    return this.title ? `<title>${this.title}</title>` : "";
-  }
-  get computedSize() {
-    const addCustom = !this.size && (this.width || this.height);
-    return this.size === "custom" || addCustom ? "custom-size" : this.size;
-  }
-  get computedClasses() {
-    const classes = {
-      icon: true,
-      [`icon-${this.computedSize}`]: !!this.computedSize
-    };
-    return this.customClasses ?? classes;
+    this.computedClasses = computed(() => {
+      const classes = {
+        icon: true,
+        [`icon-${this.computedSize()}`]: !!this.computedSize()
+      };
+      return this.customClasses() ?? classes;
+    });
+    afterNextRender(() => {
+      __privateGet(this, _hostElement).set(__privateGet(this, _elementRef2));
+    });
   }
 };
-_renderer = new WeakMap();
+_renderer2 = new WeakMap();
 _elementRef2 = new WeakMap();
 _sanitizer2 = new WeakMap();
 _iconSet2 = new WeakMap();
-_content2 = new WeakMap();
-_name2 = new WeakMap();
+_hostElement = new WeakMap();
+_titleCode2 = new WeakMap();
 _IconComponent.ɵfac = function IconComponent_Factory(__ngFactoryType__) {
   return new (__ngFactoryType__ || _IconComponent)();
 };
@@ -521,29 +463,28 @@ _IconComponent.ɵcmp = ɵɵdefineComponent({
   selectors: [["c-icon"]],
   viewQuery: function IconComponent_Query(rf, ctx) {
     if (rf & 1) {
-      ɵɵviewQuery(_c0, 5, ElementRef);
+      ɵɵviewQuerySignal(ctx.svgElementRef, _c0, 5);
     }
     if (rf & 2) {
-      let _t;
-      ɵɵqueryRefresh(_t = ɵɵloadQuery()) && (ctx.svgElementRef = _t.first);
+      ɵɵqueryAdvance();
     }
   },
-  hostAttrs: ["ngSkipHydration", "true"],
+  hostAttrs: ["ngSkipHydration", "true", 2, "display", "none"],
   inputs: {
-    content: "content",
-    attributes: "attributes",
-    customClasses: "customClasses",
-    size: "size",
-    title: "title",
-    use: "use",
-    height: "height",
-    width: "width",
-    name: [2, "name", "name", transformName],
-    viewBox: "viewBox"
+    content: [1, "content"],
+    attributes: [1, "attributes"],
+    customClasses: [1, "customClasses"],
+    size: [1, "size"],
+    title: [1, "title"],
+    use: [1, "use"],
+    height: [1, "height"],
+    width: [1, "width"],
+    name: [1, "name"],
+    viewBoxInput: [1, "viewBox", "viewBoxInput"]
   },
   exportAs: ["cIconComponent"],
   standalone: true,
-  features: [ɵɵInputTransformsFeature, ɵɵStandaloneFeature],
+  features: [ɵɵStandaloneFeature],
   decls: 2,
   vars: 1,
   consts: [["svgElement", ""], ["xmlns", "http://www.w3.org/2000/svg", "aria-hidden", "true", "pointer-events", "none", "role", "img", 3, "innerHtml", "ngClass", "cHtmlAttr"], ["xmlns", "http://www.w3.org/2000/svg", "aria-hidden", "true", "pointer-events", "none", "role", "img", 3, "ngClass", "cHtmlAttr"]],
@@ -552,7 +493,7 @@ _IconComponent.ɵcmp = ɵɵdefineComponent({
       ɵɵtemplate(0, IconComponent_Conditional_0_Template, 2, 6, ":svg:svg", 1)(1, IconComponent_Conditional_1_Template, 3, 5, ":svg:svg", 2);
     }
     if (rf & 2) {
-      ɵɵconditional(!ctx.use && !!ctx.code ? 0 : ctx.use ? 1 : -1);
+      ɵɵconditional(!ctx.use() && !!ctx.code() ? 0 : ctx.use() ? 1 : -1);
     }
   },
   dependencies: [NgClass, HtmlAttributesDirective],
@@ -568,52 +509,13 @@ var IconComponent = _IconComponent;
       selector: "c-icon",
       standalone: true,
       host: {
-        ngSkipHydration: "true"
+        ngSkipHydration: "true",
+        style: "display: none"
       },
-      template: '@if (!use && !!code) {\n  <svg\n    xmlns="http://www.w3.org/2000/svg"\n    [attr.width]="width"\n    [attr.height]="height || width"\n    [attr.viewBox]="viewBox"\n    [innerHtml]="innerHtml()"\n    [ngClass]="computedClasses"\n    [cHtmlAttr]="attributes"\n    aria-hidden="true"\n    pointer-events="none"\n    role="img"\n    #svgElement\n  >\n  </svg>\n} @else if (use) {\n  <svg\n    xmlns="http://www.w3.org/2000/svg"\n    [attr.width]="width"\n    [attr.height]="height || width"\n    [ngClass]="computedClasses"\n    [cHtmlAttr]="attributes"\n    aria-hidden="true"\n    pointer-events="none"\n    role="img"\n    #svgElement\n  >\n    <use [attr.href]="use"></use>\n  </svg>\n}\n',
+      template: '@if (!use() && !!code()) {\n  <svg\n    xmlns="http://www.w3.org/2000/svg"\n    [attr.width]="width()"\n    [attr.height]="height() || width()"\n    [attr.viewBox]="viewBox() ?? scale()"\n    [innerHtml]="innerHtml()"\n    [ngClass]="computedClasses()"\n    [cHtmlAttr]="attributes()"\n    aria-hidden="true"\n    pointer-events="none"\n    role="img"\n    #svgElement\n  >\n  </svg>\n} @else if (use()) {\n  <svg\n    xmlns="http://www.w3.org/2000/svg"\n    [attr.width]="width()"\n    [attr.height]="height() || width()"\n    [ngClass]="computedClasses()"\n    [cHtmlAttr]="attributes()"\n    aria-hidden="true"\n    pointer-events="none"\n    role="img"\n    #svgElement\n  >\n    <use [attr.href]="use()"></use>\n  </svg>\n}\n',
       styles: [".icon{display:inline-block;color:inherit;text-align:center;vertical-align:-.125rem;fill:currentColor}.icon:not(.icon-c-s):not(.icon-custom-size){width:1rem;height:1rem;font-size:1rem}.icon:not(.icon-c-s):not(.icon-custom-size).icon-xxl{width:2rem;height:2rem;font-size:2rem}.icon:not(.icon-c-s):not(.icon-custom-size).icon-xl{width:1.5rem;height:1.5rem;font-size:1.5rem}.icon:not(.icon-c-s):not(.icon-custom-size).icon-lg{width:1.25rem;height:1.25rem;font-size:1.25rem}.icon:not(.icon-c-s):not(.icon-custom-size).icon-sm{width:.875rem;height:.875rem;font-size:.875rem}.icon:not(.icon-c-s):not(.icon-custom-size).icon-3xl{width:3rem;height:3rem;font-size:3rem}.icon:not(.icon-c-s):not(.icon-custom-size).icon-4xl{width:4rem;height:4rem;font-size:4rem}.icon:not(.icon-c-s):not(.icon-custom-size).icon-5xl{width:5rem;height:5rem;font-size:5rem}.icon:not(.icon-c-s):not(.icon-custom-size).icon-6xl{width:6rem;height:6rem;font-size:6rem}.icon:not(.icon-c-s):not(.icon-custom-size).icon-7xl{width:7rem;height:7rem;font-size:7rem}.icon:not(.icon-c-s):not(.icon-custom-size).icon-8xl{width:8rem;height:8rem;font-size:8rem}.icon:not(.icon-c-s):not(.icon-custom-size).icon-9xl{width:9rem;height:9rem;font-size:9rem}\n"]
     }]
-  }], () => [], {
-    content: [{
-      type: Input
-    }],
-    attributes: [{
-      type: Input
-    }],
-    customClasses: [{
-      type: Input
-    }],
-    size: [{
-      type: Input
-    }],
-    title: [{
-      type: Input
-    }],
-    use: [{
-      type: Input
-    }],
-    height: [{
-      type: Input
-    }],
-    width: [{
-      type: Input
-    }],
-    name: [{
-      type: Input,
-      args: [{
-        transform: transformName
-      }]
-    }],
-    viewBox: [{
-      type: Input
-    }],
-    svgElementRef: [{
-      type: ViewChild,
-      args: ["svgElement", {
-        read: ElementRef
-      }]
-    }]
-  });
+  }], () => [], null);
 })();
 var _IconModule = class _IconModule {
 };
@@ -644,4 +546,4 @@ export {
   IconComponent,
   IconModule
 };
-//# sourceMappingURL=chunk-SHBZW3D5.js.map
+//# sourceMappingURL=chunk-CO3I4D2I.js.map

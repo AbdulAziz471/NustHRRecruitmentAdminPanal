@@ -4,7 +4,7 @@ import {
   IconModule,
   IconSetModule,
   IconSetService
-} from "./chunk-SHBZW3D5.js";
+} from "./chunk-CO3I4D2I.js";
 import "./chunk-DVCXGO2A.js";
 import "./chunk-V4HSFT2H.js";
 import "./chunk-2ZLRKTML.js";
