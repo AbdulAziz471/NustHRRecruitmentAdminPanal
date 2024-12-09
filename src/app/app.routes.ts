@@ -3,11 +3,9 @@ import { DefaultLayoutComponent } from './layout';
 import { authGuard } from './Core/AuthGuard/auth.guard';
 import { LoginComponent } from './Pages/auth/login/login.component';
 import { DashboardComponent } from './Pages/dashboard/dashboard.component';  // Example Dashboard Component
-
 import { UserComponent } from './Pages/users/User.component';
-
 import { RolesComponent } from './Pages/roles/roles.component';
-import { PageRolesComponent } from './Pages/pageRoles/pageRoles.component';
+import { PermissionsComponent } from './Pages/permissions/permissions.component';
 export const routes: Routes = [
   {
     path: '',
@@ -32,8 +30,8 @@ export const routes: Routes = [
         component: RolesComponent 
       },
       {
-        path: 'pageroles',
-        component: PageRolesComponent 
+        path: 'permissions',
+        component: PermissionsComponent 
       },
     ]
   },

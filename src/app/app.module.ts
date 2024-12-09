@@ -3,7 +3,7 @@ import { IconModule } from '@coreui/icons-angular';
 import { OffcanvasModule } from '@coreui/angular';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SpinnerModule } from '@coreui/angular';
-import {PageRolesComponent} from '../app/Pages/pageRoles/pageRoles.component'
+import {PermissionsComponent} from '../app/Pages/permissions/permissions.component'
 import {
   AfterContentInit,
   AfterViewInit,
@@ -57,7 +57,7 @@ import {LoginComponent} from './Pages/auth/login/login.component'
 import { Router, RouterModule } from '@angular/router';
 import { Config } from './Core/Configs/Config';
 import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common/http';
-import { AuthService } from './Core/Services/Client/Authentication/auth.service';
+import { AuthService } from './Core/Services/Authentication/auth.service';
 import { AuthInterceptorService } from './Core/Interceptors/auth-interceptor.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { DefaultFooterComponent, DefaultHeaderComponent, DefaultLayoutComponent } from './layout';
@@ -94,7 +94,7 @@ import {RolesComponent} from './Pages/roles/roles.component'
     DefaultFooterComponent,
     UserComponent,
     RolesComponent,
-    PageRolesComponent
+    PermissionsComponent,
  ],
   imports: [
     BrowserAnimationsModule,

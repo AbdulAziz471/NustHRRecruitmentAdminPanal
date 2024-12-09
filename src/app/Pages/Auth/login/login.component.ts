@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthService } from '../../../Core/Services/Client/Authentication/auth.service';
+import { AuthService } from '../../../Core/Services/Authentication/auth.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { SessionManagementService } from '../../../../../src/app/Core/Session/session-management.service';
 import Swal from 'sweetalert2';
@@ -17,21 +17,19 @@ export class LoginComponent {
   isLoginFailed: boolean = false;
   isLoggedIn: boolean = false;
   SignINdata: any = {
-    email: '',
+    username: '',
     password: '',
-    RememberMe: false
+
   };
-  emailPattern = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,4}$";
-  constructor(
+    constructor(
     private router: Router,
     private loginService: AuthService,
     private fb: FormBuilder,
     private sessionManagement: SessionManagementService,
   ) {
     this.loginForm = this.fb.group({
-      email: ['', [Validators.required, Validators.email]],
+      username: ['', [Validators.required,]],
       password: ['', [Validators.required]],
-      rememberMe: [false]
     });
   }
   toggleNewPassword() {
@@ -108,9 +106,8 @@ export class LoginComponent {
 
     if (savedUsername && savedPassword) {
       this.loginForm.patchValue({
-        email: savedUsername,
+        username: savedUsername,
         password: savedPassword,
-        rememberMe: true
       });
     }
   }

@@ -1,10 +1,10 @@
 <c-row>
     <c-col sm="5">
-      <h4 class="card-title mb-0" id="traffic">PagesRoles</h4>
+      <h4 class="card-title mb-0" id="traffic">Permissions</h4>
     </c-col>
     <c-col class="d-none d-md-block" sm="7">
       <button cButton cOffcanvasToggle="OffcanvasStart"class="float-end" variant="outline"aria-label="Download">
-        Add PageRoles
+        Add Permissions
       </button>
     </c-col>  
   </c-row>
@@ -17,7 +17,7 @@
           </tr>
         </thead>
         <tbody>
-          @for (user of PageRoles; track user.name; let i = $index) {
+          @for (user of permissions; track user.name; let i = $index) {
           <tr>
             <td>
               <div>{{ user.name }}</div>
@@ -43,7 +43,7 @@ style="width: 40%;"
   id="OffcanvasStart"
 >
   <c-offcanvas-header>
-    <h5 cOffcanvasTitle>Add PageRole</h5>
+    <h5 cOffcanvasTitle>Add Permissions</h5>
     <button
       cButtonClose
       class="text-reset ms-auto"
@@ -60,7 +60,7 @@ style="width: 40%;"
         <input cFormControl id="inputEmail4" type="email" />
       </c-col>
       <c-col [md]="12">
-        <label cLabel for="inputPassword4">Permisstion </label>
+        <label cLabel for="inputPassword4">Permissions</label>
         <input cFormControl id="inputPassword4" type="password" />
       </c-col>
       <c-col>

@@ -21,8 +21,8 @@ export const navItems: INavData[] = [
     iconComponent: { name: 'cil-speedometer' },
   },
   {
-    name: 'PageRoles',
-    url: '/pageroles',
+    name: 'Permissions',
+    url: '/permissions',
     iconComponent: { name: 'cil-speedometer' },
   },
 ];
