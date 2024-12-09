@@ -1,7 +1,7 @@
 import { Routes } from '@angular/router';
 import { DefaultLayoutComponent } from './layout';
 import { authGuard } from './Core/AuthGuard/auth.guard';
-import { LoginComponent } from './Pages/auth/login/login.component';
+import { LoginComponent } from './Pages/Auth/login/login.component';
 import { DashboardComponent } from './Pages/dashboard/dashboard.component';  // Example Dashboard Component
 import { UserComponent } from './Pages/users/User.component';
 import { RolesComponent } from './Pages/roles/roles.component';
@@ -19,7 +19,7 @@ export const routes: Routes = [
     children: [
       {
         path: 'dashboard',
-        component: DashboardComponent  // Ensure DashboardComponent is declared in a module
+        component: DashboardComponent 
       },
       {
         path: 'User',
@@ -37,6 +37,6 @@ export const routes: Routes = [
   },
   {
     path: 'login',
-    component: LoginComponent  // Make sure LoginComponent is declared in a module
+    component: LoginComponent
   },
 ];

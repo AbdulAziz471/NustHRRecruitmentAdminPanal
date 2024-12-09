@@ -23,11 +23,15 @@
         </tr>
       </thead>
       <tbody>
-        @for (user of users; track user.name; let i = $index) {
-        <tr>
-          <!-- <td class="text-center">
-            <c-avatar [size]="'md'" src="{{ user.avatar }}" status="{{ user.status }}" />
-          </td> -->
+        <tr *ngIf="UserList.length<1">
+          <td colspan="3" class="text-center">Not data is found!</td>
+      </tr>
+      <tr *ngFor="let obj of UserList">
+
+        <td>{{obj.sAwardType}}</td>
+        <td>{{obj.sAwardDetail}}</td>
+        <td>
+    <!-- <tr>
           <td>
             <div>{{ user.name }}</div>
             <div class="small text-body-secondary text-nowrap">
@@ -54,8 +58,7 @@
              
             </button>
         </td>
-        </tr>
-        }
+        </tr> -->
       </tbody>
     </table>
 </c-card>

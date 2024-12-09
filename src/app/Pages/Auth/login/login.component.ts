@@ -36,70 +36,47 @@ export class LoginComponent {
     this.showNewPassword = !this.showNewPassword;
   }
   Login(): void {
-    if (this.loginForm.invalid) {
-        Swal.fire({
-            icon: 'error',
-            title: 'Invalid Input',
-            text: 'Please enter valid email and password'
-        });
-        this.router.navigate(['dashboard']);
-        return;
-    }
-
     this.isLoading = true;
     this.loginService.signIn(this.loginForm.value).subscribe(
-        (response: any) => {
-            // Handle successful login
-            this.sessionManagement.saveToken(response.accessToken);
-            this.sessionManagement.saveUser(response);
-            Swal.fire({
-                icon: 'success',
-                title: 'Login Successful',
-                text: 'You are being redirected to the dashboard.'
-            });
-            this.isLoading = false;
-            this.isLoginFailed = false;
-            this.isLoggedIn = true;
-            this.router.navigate(['dashboard']);
-
-            if (this.loginForm.value.rememberMe) {
-                localStorage.setItem('savedUsername', this.loginForm.value.email);
-                localStorage.setItem('savedPassword', this.loginForm.value.password);
-            } else {
-                localStorage.removeItem('savedUsername');
-                localStorage.removeItem('savedPassword');
-            }
-        },
-        (error: any) => {
-            this.isLoading = false;
-
-            // Specific error for CORS
-            if (error.name === 'HttpErrorResponse' && error.status === 0) {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Network Error',
-                    text: 'Unable to reach the server. This might be due to a network error or CORS policy restrictions.'
-                });
-                return;
-            }
-
-            // Other error handling
-            if (error.status === 500) {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Invalid API Key',
-                    text: 'The provided API key is invalid. Please check your configuration.'
-                });
-            } else {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Login Failed',
-                    text: 'Invalid email or password'
-                });
-            }
+      (token: string) => {  // Directly use token as string
+        this.sessionManagement.saveToken(token);
+        Swal.fire({
+          icon: 'success',
+          title: 'Login Successful',
+          text: 'You are being redirected to the dashboard.'
+        });
+        this.isLoading = false;
+        this.isLoginFailed = false;
+        this.isLoggedIn = true;
+        this.router.navigate(['dashboard']);
+      },
+      (error: any) => {
+        this.isLoading = false;
+  
+        // Handle errors appropriately
+        if (error.name === 'HttpErrorResponse' && error.status === 0) {
+          Swal.fire({
+            icon: 'error',
+            title: 'Network Error',
+            text: 'Unable to reach the server. This might be due to a network error or CORS policy restrictions.'
+          });
+        } else if (error.status === 500) {
+          Swal.fire({
+            icon: 'error',
+            title: 'Invalid API Key',
+            text: 'The provided API key is invalid. Please check your configuration.'
+          });
+        } else {
+          Swal.fire({
+            icon: 'error',
+            title: 'Login Failed',
+            text: 'Invalid email or password.'
+          });
         }
+      }
     );
-}
+  }
+  
   ngOnInit(): void {
     const savedUsername = localStorage.getItem('savedUsername');
     const savedPassword = localStorage.getItem('savedPassword');

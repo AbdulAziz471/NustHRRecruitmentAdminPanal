@@ -31,7 +31,7 @@ import { ColorModeService, HeaderComponent } from "@coreui/angular";
 // } from '@coreui/angular';
 
 // import { IconDirective } from '@coreui/icons-angular';
-import { SessionManagementService } from 'src/app/Core/Session/session-management.service';
+import { SessionManagementService } from '../../../Core/Session/session-management.service';
 
 @Component({
   selector: 'app-default-header',
@@ -45,7 +45,6 @@ export class DefaultHeaderComponent extends HeaderComponent {
   readonly colorModes = [
     { name: 'light', text: 'Light', icon: 'cilSun' },
     { name: 'dark', text: 'Dark', icon: 'cilMoon' },
-    { name: 'auto', text: 'Auto', icon: 'cilContrast' }
   ];
 
   readonly icons = computed(() => {
@@ -54,7 +53,7 @@ export class DefaultHeaderComponent extends HeaderComponent {
   });
   Signout() {
    
-    this.sessionManagement.signOut();
+    // this.sessionManagement.signOut();
     this.router.navigate(['/login']);
   }
   constructor(

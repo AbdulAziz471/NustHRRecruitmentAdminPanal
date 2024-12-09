@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { PermissionsService } from 'src/app/Core/Services/Permissions/permissions.service';
+// import { PermissionsService } from '../../Core/Services/Permissions/permissions.service';
 interface IPermission {
   name: string;
 }
@@ -11,38 +11,23 @@ interface IPermission {
 
 export class PermissionsComponent implements OnInit {
 
-
-  constructor(private permissionService: PermissionsService) {}
+  permissions: any = [];
+  constructor(
+    // private permissionService: PermissionsService
+  ) {}
   permission: any[] = [];
-  fetchPermissions(): void {
-    this.permissionService.getPermissions().subscribe(
-      (data) => {
-        this.permissions = data;
-      },
-      (error) => {
-        console.error('Error fetching permissions:', error);
-      }
-    );
-  }
-  public permissions: IPermission[] = [
-    {
-      name: 'Super Admin',
-    },
-    {
-      name: 'Admin',
-    },
-    
-    {
-      name: 'Develpper ',
-    },
-    {
-      name: 'UI& UX Designer',
-    },
-  ];
-
-
+  // fetchPermissions(): void {
+  //   this.permissionService.getPermissions().subscribe(
+  //     (data) => {
+  //       this.permissions = data;
+  //     },
+  //     (error) => {
+  //       console.error('Error fetching permissions:', error);
+  //     }
+  //   );
+  // }
   ngOnInit(): void {
-    this.fetchPermissions();
+    // this.fetchPermissions();
   }
 
   

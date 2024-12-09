@@ -45,21 +45,6 @@ export class SessionManagementService {
 
     return {};
   }
-  public saveJob(id: string,title: string,duedate:string): void {
-    window.sessionStorage.removeItem('JobId');
-    window.sessionStorage.removeItem('JobTitle');
-    window.sessionStorage.removeItem('JobDueDate');
-    
-    window.sessionStorage.setItem('JobId', JSON.stringify(id));
-    window.sessionStorage.setItem('JobTitle', JSON.stringify(title));
-    window.sessionStorage.setItem('JobDueDate', JSON.stringify(duedate));
+ 
+
   }
-  public RemoveJobId(): void {
-    window.sessionStorage.removeItem('JobId');
-    window.sessionStorage.removeItem('JobTitle');
-    window.sessionStorage.removeItem('JobDueDate');
-  }
-  public getUserInfoObservable() {
-    return this.userInfo.asObservable();
-  }
-}

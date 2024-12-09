@@ -53,7 +53,7 @@ import {AppComponent } from "./app.component"
 import { ChartjsComponent } from '@coreui/angular-chartjs';
 import { IconDirective, IconSetService } from '@coreui/icons-angular';
 import { ContainerComponent, CardGroupComponent, FormDirective, InputGroupComponent, InputGroupTextDirective, FormControlDirective } from '@coreui/angular';
-import {LoginComponent} from './Pages/auth/login/login.component'
+import {LoginComponent} from './Pages/Auth/login/login.component'
 import { Router, RouterModule } from '@angular/router';
 import { Config } from './Core/Configs/Config';
 import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common/http';
