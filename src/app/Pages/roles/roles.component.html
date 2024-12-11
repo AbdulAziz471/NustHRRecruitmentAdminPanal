@@ -1,70 +1,51 @@
+<!-- Role Management Layout -->
 <c-row>
-    <c-col sm="5">
-      <h4 class="card-title mb-0" id="traffic">Roles</h4>
-    </c-col>
-    <c-col class="d-none d-md-block" sm="7">
-      <button cButton cOffcanvasToggle="OffcanvasStart"class="float-end" variant="outline"aria-label="Download">
-        Add Role
-      </button>
-    </c-col>  
-  </c-row>
-  <c-card class="my-2">
-      <table  borderless cTable hover class="mb-0 ">
-        <thead >
-          <tr>
-            <th class="bg-body-tertiary">Name</th>
-           <th class="bg-body-tertiary">Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          @for (user of users; track user.name; let i = $index) {
-          <tr>
-            <td>
-              <div>{{ user.name }}</div>
-            </td>
-            <td class="d-flex  gap-2">
-                <button cButton color="primary" variant="ghost">
-                  <svg    cIcon name="cil-pencil"></svg>
-                </button>
-                <button  cButton color="primary" variant="ghost">
-                  <svg  cIcon name="cil-trash"></svg>
-                 
-                </button>
-            </td>
-          </tr>
-          }
-        </tbody>
-      </table>
-  </c-card>
-  
-<c-offcanvas
-style="width: 40%;"
-  placement="end"
-  id="OffcanvasStart"
->
+  <c-col sm="5">
+    <h4 class="card-title mb-0" id="traffic">Roles</h4>
+  </c-col>
+  <c-col sm="7" class="d-none d-md-block">
+    <button cButton variant="outline" cOffcanvasToggle="OffcanvasStart" class="float-end">
+      Add Role
+    </button>
+  </c-col>
+</c-row>
+
+<c-card class="my-2">
+  <table cTable borderless hover class="mb-0">
+    <thead>
+      <tr>
+        <th class="bg-body-tertiary">Name</th>
+        <th class="bg-body-tertiary">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let role of roles">
+        <td>{{ role.name }}</td>
+        <td class="d-flex gap-2">
+          <button cOffcanvasToggle="OffcanvasStart" cButton color="primary" variant="ghost" (click)="onEditRole(role)">
+            <svg cIcon name="cil-pencil"></svg>
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</c-card>
+
+<c-offcanvas style="width: 40%;" placement="end" id="OffcanvasStart">
   <c-offcanvas-header>
-    <h5 cOffcanvasTitle>Add Role</h5>
-    <button
-      cButtonClose
-      class="text-reset ms-auto"
-      cOffcanvasToggle="OffcanvasStart"
-      aria-label="Close"
-    >
-    <svg    cIcon name="cil-x"></svg>
-  </button>
+    <h5>{{ isEdit ? 'Update Role' : 'Add Role' }}</h5>
+    <button cButtonClose cOffcanvasToggle="OffcanvasStart" aria-label="Close">
+      <svg cIcon name="cil-x"></svg>
+    </button>
   </c-offcanvas-header>
   <c-offcanvas-body>
-    <form cForm class="row g-3">
-      <c-col [md]="12">
-        <label cLabel for="inputEmail4">Name</label>
-        <input cFormControl id="inputEmail4" type="email" />
-      </c-col>
-      <c-col [md]="12">
-        <label cLabel for="inputPassword4">Permisstion </label>
-        <input cFormControl id="inputPassword4" type="password" />
+    <form [formGroup]="roleForm" (ngSubmit)="onSubmit()" cForm class="row g-3">
+      <c-col md="12">
+        <label cLabel for="roleName">Name</label>
+        <input cFormControl id="roleName" type="text" formControlName="name" class="form-control"/>
       </c-col>
       <c-col>
-        <button class="col-12"  cButton type="submit">Create</button>
+        <button cButton type="submit" class="col-12">{{ isEdit ? 'Update' : 'Create' }} Role</button>
       </c-col>
     </form>
   </c-offcanvas-body>

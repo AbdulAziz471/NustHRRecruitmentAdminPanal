@@ -6,6 +6,7 @@ import { DashboardComponent } from './Pages/dashboard/dashboard.component';  // 
 import { UserComponent } from './Pages/users/User.component';
 import { RolesComponent } from './Pages/roles/roles.component';
 import { PermissionsComponent } from './Pages/permissions/permissions.component';
+import {PagesComponent} from './Pages/pages/pages.component'
 export const routes: Routes = [
   {
     path: '',
@@ -32,6 +33,10 @@ export const routes: Routes = [
       {
         path: 'permissions',
         component: PermissionsComponent 
+      },
+      {
+        path: 'pages',
+        component: PagesComponent 
       },
     ]
   },

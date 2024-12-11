@@ -17,22 +17,19 @@
           </tr>
         </thead>
         <tbody>
-          @for (user of permissions; track user.name; let i = $index) {
-          <tr>
+         <tr *ngFor="let permission of permissions">
             <td>
-              <div>{{ user.name }}</div>
+              <div>{{ permission.title }}</div>
             </td>
             <td class="d-flex  gap-2">
-                <button cButton color="primary" variant="ghost">
+                <button cButton color="primary" variant="ghost" (click)="onEditPermission(permission)">
                   <svg    cIcon name="cil-pencil"></svg>
                 </button>
-                <button  cButton color="primary" variant="ghost">
+                <!-- <button  cButton color="primary" variant="ghost">
                   <svg  cIcon name="cil-trash"></svg>
-                 
-                </button>
+                </button> -->
             </td>
           </tr>
-          }
         </tbody>
       </table>
   </c-card>
@@ -43,7 +40,7 @@ style="width: 40%;"
   id="OffcanvasStart"
 >
   <c-offcanvas-header>
-    <h5 cOffcanvasTitle>Add Permissions</h5>
+    <h5>{{ isEdit ? 'Update Permission' : 'Add Permission' }}</h5>
     <button
       cButtonClose
       class="text-reset ms-auto"
@@ -57,14 +54,10 @@ style="width: 40%;"
     <form cForm class="row g-3">
       <c-col [md]="12">
         <label cLabel for="inputEmail4">Name</label>
-        <input cFormControl id="inputEmail4" type="email" />
-      </c-col>
-      <c-col [md]="12">
-        <label cLabel for="inputPassword4">Permissions</label>
-        <input cFormControl id="inputPassword4" type="password" />
+        <input  cFormControl id="roleName" type="text" formControlName="title" class="form-control"/>
       </c-col>
       <c-col>
-        <button class="col-12"  cButton type="submit">Create</button>
+        <button class="col-12"  cButton type="submit">{{ isEdit ? 'Update Permission' : 'Add Permission' }}</button>
       </c-col>
     </form>
   </c-offcanvas-body>

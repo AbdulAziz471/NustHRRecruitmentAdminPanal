@@ -2,72 +2,109 @@
 
 import { Component, OnInit } from '@angular/core';
 import Swal from 'sweetalert2';
-import { ActivatedRoute, Router } from '@angular/router';
-import { SessionManagementService } from '../../Core/Session/session-management.service';
-// import { UsersService } from '../../Core/Services/UserService/users.service';
+import { User } from '../../Core/Interfaces/User.interface';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UserService } from '../../Core/Services/UserService/user.service';
+import { RoleService } from '../../Core/Services/RoleService/role.service';
+import { Role } from '../../Core/Interfaces/role.interface';
 @Component({
   templateUrl: 'User.component.html',
   styleUrls: ['User.component.scss'],
 })
 
 export class UserComponent implements OnInit {
+  users: User[] = [];
+  userForm: FormGroup;
+  isEdit: boolean = false;
   constructor(
-    private sessionManagement: SessionManagementService, 
-    // private usersService: UsersService,
-    private route: ActivatedRoute, 
-    private router: Router, 
-  ) { 
-  
-  } 
-  UserList: any = [];
+    // private roleService: RoleService,
+    private userService: UserService,
+    private fb: FormBuilder 
+  ) {
 
-  form: any = {
-    sName : '',
-    sEmail : '',
-    lEmployeeID : '',
-    lDirectorateID : '',
-    bActive : true,
+    this.userForm = this.fb.group({
+      id: [null], // Add this line back
+      sName: ['', Validators.required],
+      sEmail: ['', Validators.required],
+      lEmployeeID: ['', Validators.required],
+      lDirectorateID: ['', Validators.required],
+      bActive: [false],
+    });
+    
+  }
+  fetchUsers(): void {
+    this.userService.GetAllUsersList().subscribe(
+      (data) => {
+        this.users = data;
+      },
+      (error) => {
+        console.error('Error fetching Users:', error);
+      }
+    );
   }
   ngOnInit(): void {
-    // this.GetUserList();
+    this.fetchUsers();
   }
-//   ClearForm(f: any): void {
-  
-//     delete this.form.lAwardId; 
-//     f.resetForm(); 
-// }
-  
-// AddUser(f: any): void {
-//   this.usersService.createUser(this.form)
-//     .subscribe(
-//         {
-//           next: (response: any) => {
-            
-//             if (response.id == 1) {
-          
-//               Swal.fire('Created!', 'New record has been deleted.', 'success');
-//               // this.toastr.success("Your record has been successfully added!","Successfully!!" );
-//               this.ClearForm(f);
-//             }
-//           },
-//           error: (error: any) => {
-//             console.error("Error occurred:", error);
-//           },
-//           complete: () => {
-//             console.log("Request completed.");
-            
-//           }
-//      }
-//     )
-// }
-// GetUserList(): void {
 
-//   this.usersService.getUsers()
-//    .subscribe(
-//      (response: any) => {
-//        this.UserList=response;
-//      }
-//    ) 
-// }
 
+  
+  onSubmit(): void {
+    if (!this.userForm.valid) {
+      Swal.fire('Error', 'Please fill in all required fields.', 'error');
+      return;
+    }
+
+    this.isEdit ? this.updateUser() : this.addUser();
+  }
+
+  private addUser(): void {
+    const { id, ...formData } = this.userForm.value; // Destructure to exclude 'id'
+    this.userService.AddUser(formData).subscribe({
+      next: () => {
+        Swal.fire('Success', 'User has been added.', 'success');
+        this.afterSave();
+      },
+      error: (error) => this.handleError('Error adding user', error)
+    });
+  }
+
+  
+  private updateUser(): void {
+    this.userService.UpdateUser(this.userForm.value).subscribe({
+      next: () => {
+        Swal.fire('Success', 'User has been updated.', 'success');
+        this.afterSave();
+      },
+      error: (error) => this.handleError('Error updating user', error)
+    });
+  }
+  
+
+
+  private afterSave(): void {
+    this.fetchUsers();
+    this.clearForm();
+  }
+
+  clearForm(): void {
+    this.userForm.reset();
+    this.isEdit = false;
+  }
+
+  onEditUser(user: User): void {
+    this.userForm.setValue({
+      id: user.id, // Ensure this is part of your form group
+      sName: user.sName,
+      sEmail: user.sEmail,
+      lEmployeeID: user.lEmployeeID,
+      lDirectorateID: user.lDirectorateID,
+      bActive: user.bActive
+    });
+    this.isEdit = true;
+  }
+  
+  private handleError(message: string, error: any): void {
+    console.error(message, error);
+    Swal.fire('Error', message, 'error');
+  }
 }

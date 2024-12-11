@@ -1,36 +1,93 @@
 import { Component, OnInit } from '@angular/core';
-interface IUser {
-  name: string;
-}
+import { RoleService } from '../../Core/Services/RoleService/role.service';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import Swal from 'sweetalert2';
+import { Role } from '../../Core/Interfaces/role.interface';
 
 @Component({
-  templateUrl: 'roles.component.html',
-  styleUrls: ['roles.component.scss'],
+  selector: 'app-roles',
+  templateUrl: './roles.component.html',
+  styleUrls: ['./roles.component.scss']
 })
-
 export class RolesComponent implements OnInit {
+  roles: Role[] = [];
+  roleForm: FormGroup;
+  isEdit: boolean = false;
+  constructor(
+    private roleService: RoleService,
+    private fb: FormBuilder 
+  ) {
 
-
-  public users: IUser[] = [
-    {
-      name: 'Super Admin',
-    },
-    {
-      name: 'Admin',
-    },
-    
-    {
-      name: 'Develpper ',
-    },
-    {
-      name: 'UI& UX Designer',
-    },
-  ];
-
-
+     // Initialize the form in the constructor
+     this.roleForm = this.fb.group({
+      id: [null],
+      name: ['', Validators.required]
+    });
+  }
+  fetchRoles(): void {
+    this.roleService.GetAllRolesList().subscribe(
+      (data) => {
+        this.roles = data;
+      },
+      (error) => {
+        console.error('Error fetching Roles:', error);
+      }
+    );
+  }
   ngOnInit(): void {
+    this.fetchRoles();
   }
 
+
+  
+  onSubmit(): void {
+    if (!this.roleForm.valid) {
+      Swal.fire('Error', 'Please fill in all required fields.', 'error');
+      return;
+    }
+
+    this.isEdit ? this.updateRole() : this.addRole();
+  }
+
+  private addRole(): void {
+    this.roleService.AddRole(this.roleForm.value).subscribe({
+      next: () => {
+        Swal.fire('Success', 'Role has been added.', 'success');
+        this.afterSave();
+      },
+      error: (error) => this.handleError('Error adding role', error)
+    });
+  }
+
+  private updateRole(): void {
+    this.roleService.UpdateRole(this.roleForm.value).subscribe({
+      next: () => {
+        Swal.fire('Success', 'Role has been updated.', 'success');
+        this.afterSave();
+      },
+      error: (error) => this.handleError('Error updating role', error)
+    });
+  }
+
+  private afterSave(): void {
+    this.fetchRoles();
+    this.clearForm();
+  }
+
+  clearForm(): void {
+    this.roleForm.reset();
+    this.isEdit = false;
+  }
+
+  onEditRole(role: Role): void {
+    this.roleForm.setValue({ id: role.id, name: role.name });
+    this.isEdit = true;
+  }
+
+  private handleError(message: string, error: any): void {
+    console.error(message, error);
+    Swal.fire('Error', message, 'error');
+  }
   
 
 

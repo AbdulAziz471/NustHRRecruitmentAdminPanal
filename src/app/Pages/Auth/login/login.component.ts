@@ -38,13 +38,16 @@ export class LoginComponent {
   Login(): void {
     this.isLoading = true;
     this.loginService.signIn(this.loginForm.value).subscribe(
-      (token: string) => {  // Directly use token as string
+      (token: string) => {
+        console.log("Received token:", token);
         this.sessionManagement.saveToken(token);
+        
         Swal.fire({
           icon: 'success',
           title: 'Login Successful',
           text: 'You are being redirected to the dashboard.'
         });
+         console.log(token);
         this.isLoading = false;
         this.isLoginFailed = false;
         this.isLoggedIn = true;

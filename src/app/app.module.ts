@@ -58,7 +58,6 @@ import { Router, RouterModule } from '@angular/router';
 import { Config } from './Core/Configs/Config';
 import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common/http';
 import { AuthService } from './Core/Services/Authentication/auth.service';
-import { AuthInterceptorService } from './Core/Interceptors/auth-interceptor.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { DefaultFooterComponent, DefaultHeaderComponent, DefaultLayoutComponent } from './layout';
 import { DashboardComponent } from './Pages/dashboard/dashboard.component';
@@ -84,6 +83,8 @@ import {
 } from '@coreui/angular';
 import {UserComponent} from './Pages/users/User.component'
 import {RolesComponent} from './Pages/roles/roles.component'
+import { AuthInterceptor } from './Core/Interceptors/auth-interceptor.service';
+import { PagesComponent } from './Pages/pages/pages.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -95,10 +96,12 @@ import {RolesComponent} from './Pages/roles/roles.component'
     UserComponent,
     RolesComponent,
     PermissionsComponent,
+    PagesComponent,
  ],
   imports: [
     BrowserAnimationsModule,
     OffcanvasModule,SpinnerModule,
+    ReactiveFormsModule,
     IconModule,
     SidebarModule,
     NgScrollbar,
@@ -127,7 +130,6 @@ import {RolesComponent} from './Pages/roles/roles.component'
     NavLinkDirective,
     SidebarToggleDirective,
     ThemeDirective,
-  
     GridModule,
     HttpClientModule,
     CommonModule,CardModule,BrowserModule,
@@ -140,7 +142,7 @@ import {RolesComponent} from './Pages/roles/roles.component'
     IconSetService,
     {
       provide: HTTP_INTERCEPTORS,
-      useClass: AuthInterceptorService,
+      useClass: AuthInterceptor,
       multi: true
     }
     // Add other services and providers here
