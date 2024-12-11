@@ -50,6 +50,7 @@ export class RolesComponent implements OnInit {
   }
 
   private addRole(): void {
+    const { id, ...formData } = this.roleForm.value; 
     this.roleService.AddRole(this.roleForm.value).subscribe({
       next: () => {
         Swal.fire('Success', 'Role has been added.', 'success');

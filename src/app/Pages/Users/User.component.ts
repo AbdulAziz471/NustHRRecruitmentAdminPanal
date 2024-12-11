@@ -23,7 +23,7 @@ export class UserComponent implements OnInit {
   ) {
 
     this.userForm = this.fb.group({
-      id: [null], // Add this line back
+      id: [null], 
       sName: ['', Validators.required],
       sEmail: ['', Validators.required],
       lEmployeeID: ['', Validators.required],
@@ -58,7 +58,7 @@ export class UserComponent implements OnInit {
   }
 
   private addUser(): void {
-    const { id, ...formData } = this.userForm.value; // Destructure to exclude 'id'
+    const { id, ...formData } = this.userForm.value;
     this.userService.AddUser(formData).subscribe({
       next: () => {
         Swal.fire('Success', 'User has been added.', 'success');
