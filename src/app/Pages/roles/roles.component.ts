@@ -18,7 +18,6 @@ export class RolesComponent implements OnInit {
     private fb: FormBuilder 
   ) {
 
-     // Initialize the form in the constructor
      this.roleForm = this.fb.group({
       id: [null],
       name: ['', Validators.required]
@@ -50,8 +49,8 @@ export class RolesComponent implements OnInit {
   }
 
   private addRole(): void {
-    const { id, ...formData } = this.roleForm.value; 
-    this.roleService.AddRole(this.roleForm.value).subscribe({
+    const { id, ...formData } = this.roleForm.value; // Destructure to exclude 'id'
+    this.roleService.AddRole(formData).subscribe({ // Send formData without 'id'
       next: () => {
         Swal.fire('Success', 'Role has been added.', 'success');
         this.afterSave();
@@ -59,6 +58,7 @@ export class RolesComponent implements OnInit {
       error: (error) => this.handleError('Error adding role', error)
     });
   }
+  
 
   private updateRole(): void {
     this.roleService.UpdateRole(this.roleForm.value).subscribe({
@@ -81,9 +81,13 @@ export class RolesComponent implements OnInit {
   }
 
   onEditRole(role: Role): void {
-    this.roleForm.setValue({ id: role.id, name: role.name });
+    this.roleForm.setValue({
+      id: role.id, // Ensure this is part of your form group
+      name: role.name,
+    });
     this.isEdit = true;
   }
+  
 
   private handleError(message: string, error: any): void {
     console.error(message, error);

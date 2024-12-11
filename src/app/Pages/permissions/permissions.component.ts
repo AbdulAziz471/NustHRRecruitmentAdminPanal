@@ -18,11 +18,11 @@ export class PermissionsComponent implements OnInit {
     private fb: FormBuilder 
   ) {
 
-     // Initialize the form in the constructor
+
      this.permissionForm = this.fb.group({
       id: [null],
-      name: ['', Validators.required]
-    });
+      title: ['', Validators.required]
+    }); 
   }
   fetchPermissions(): void {
     this.permissionService.GetAllList().subscribe(
@@ -39,18 +39,19 @@ export class PermissionsComponent implements OnInit {
   }
 
 
-  
+   
   onSubmit(): void {
     if (!this.permissionForm.valid) {
       Swal.fire('Error', 'Please fill in all required fields.', 'error');
       return;
     }
 
-    this.isEdit ? this.updatePermission() : this.addRole();
+    this.isEdit ? this.updateRole() : this.addPermission();
   }
 
-  private addRole(): void {
-    this.permissionService.Add(this.permissionForm.value).subscribe({
+  private addPermission(): void {
+    const { id, ...formData } = this.permissionForm.value; // Destructure to exclude 'id'
+    this.permissionService.Add(formData).subscribe({
       next: () => {
         Swal.fire('Success', 'Role has been added.', 'success');
         this.afterSave();
@@ -58,11 +59,12 @@ export class PermissionsComponent implements OnInit {
       error: (error) => this.handleError('Error adding role', error)
     });
   }
+  
 
-  private updatePermission(): void {
+  private updateRole(): void {
     this.permissionService.Update(this.permissionForm.value).subscribe({
       next: () => {
-        Swal.fire('Success', 'Role has been updated.', 'success');
+        Swal.fire('Success', 'Permission has been updated.', 'success');
         this.afterSave();
       },
       error: (error) => this.handleError('Error updating role', error)
@@ -80,9 +82,13 @@ export class PermissionsComponent implements OnInit {
   }
 
   onEditPermission(permission: Permission): void {
-    this.permissionForm.setValue({ id: permission.id, name: permission.title });
+    this.permissionForm.setValue({
+      id: permission.id, 
+      title: permission.title,
+    });
     this.isEdit = true;
   }
+  
 
   private handleError(message: string, error: any): void {
     console.error(message, error);

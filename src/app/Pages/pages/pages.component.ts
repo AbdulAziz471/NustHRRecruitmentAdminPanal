@@ -4,7 +4,11 @@ import { PageService } from '../../Core/Services/PageService/page.service';
 import Swal from 'sweetalert2';
 interface Page {
   id?: string; 
-  name: string;
+  title: string;
+  pageUrl: string;
+  parentPageId: string;
+  preferenceOrder: string;
+  description: string;
 }
 @Component({
   selector: 'app-pages',
@@ -23,7 +27,12 @@ export class PagesComponent {
      // Initialize the form in the constructor
      this.pageForm = this.fb.group({
       id: [null],
-      name: ['', Validators.required]
+      title: ['', Validators.required],
+      pageUrl: ['', Validators.required],
+      parentPageId: ['', Validators.required],
+      preferenceOrder: ['', Validators.required],
+      description: ['', Validators.required],
+      
     });
   }
   fetchPages(): void {
@@ -82,7 +91,14 @@ export class PagesComponent {
   }
 
   onEditPage(page: Page): void {
-    this.pageForm.setValue({ id: page.id, name: page.name });
+    this.pageForm.setValue({ 
+      id: page.id, 
+      title: page.title,
+      pageUrl: page.pageUrl,
+      parentPageId: page.parentPageId,
+      preferenceOrder: page.preferenceOrder,
+      description: page.description
+     });
     this.isEdit = true;
   }
 

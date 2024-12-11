@@ -3,7 +3,7 @@
     <c-col sm="5">
       <h4 class="card-title mb-0" id="traffic">Pages</h4>
     </c-col>
-    <c-col sm="7" class="d-none d-md-block">
+    <c-col sm="7" class="d-block">
       <button cButton variant="outline" cOffcanvasToggle="OffcanvasStart" class="float-end">
         Add Page
       </button>
@@ -15,12 +15,14 @@
       <thead>
         <tr>
           <th class="bg-body-tertiary">Name</th>
+          <th class="bg-body-tertiary">Page URL</th>
           <th class="bg-body-tertiary">Actions</th>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let page of pages">
-          <td>{{ page.name }}</td>
+          <td>{{ page.title }}</td>
+          <td>{{ page.pageUrl }}</td>
           <td class="d-flex gap-2">
             <button cOffcanvasToggle="OffcanvasStart" cButton color="primary" variant="ghost" (click)="onEditPage(page)">
               <svg cIcon name="cil-pencil"></svg>
