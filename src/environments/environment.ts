@@ -6,9 +6,6 @@ export const environment = {
   production: false,
   API_URL: 'http://beta.hradminapix.nust.edu.pk/api/',
   Image_URL: 'http://beta.hradminapix.nust.edu.pk/',
-  // App_Key: '0lFUSQ3RYZ/7iwKFz0mbYiVFve0WmZG/meynCPDsZ2A=',  
-  // // API_URL: 'https://localhost:7227/api/',
-  // // Image_URL: 'https://localhost:7227/',
-  // // App_Key: '0lFUSQ3RYZ/7iwKFz0mbYiVFve0WmZG/meynCPDsZ2A=', 
+  App_Key: '0lFUSQ3RYZ/7iwKFz0mbYiVFve0WmZG/meynCPDsZ2A=',  
 };
 

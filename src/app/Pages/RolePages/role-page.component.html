@@ -4,25 +4,39 @@
       <h4 class="card-title mb-0" id="traffic">RolePages</h4>
     </c-col>
   </c-row>
-  
-  <c-card class="my-2">
+
+    
+  <c-card class="my-3 p-2">
+    <c-col md="4" class="mb-2">
+      <label cLabel for="PageName">Select Role</label>
+      <select class="form-select"  id="moduleSelect" (change)="onRoleChange($event)">
+        <option value="" disabled>Select Module</option>
+        <option *ngFor="let role of roles" [value]="role.id">{{ role.name }}</option>
+      </select>      
+      
+    </c-col>
     <table cTable borderless hover class="mb-0">
       <thead>
         <tr>
           <th class="bg-body-tertiary">Pages</th>
-          <th class="bg-body-tertiary">Permission</th>
+          <ng-container *ngFor="let permission of permissions">
+            <th class="bg-body-tertiary">{{ permission.title }}</th>
+          </ng-container>
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td></td>
-          <td class="d-flex gap-2">
-            <button cOffcanvasToggle="OffcanvasStart" cButton color="primary" variant="ghost">
-              <svg cIcon name="cil-pencil"></svg>
-            </button>
-          </td>
+        <tr *ngFor="let page of pages">
+          <td>{{ page.title }}</td>
+          <ng-container *ngFor="let permission of permissions">
+            <td>
+              <div class="form-check form-switch">
+                <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+              </div>
+            </td>
+          </ng-container>
         </tr>
       </tbody>
+      
     </table>
   </c-card>
   

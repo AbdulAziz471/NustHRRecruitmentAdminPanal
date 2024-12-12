@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { catchError, Observable, throwError } from 'rxjs';
 import { SessionManagementService } from '../Session/session-management.service';
 import { Router } from '@angular/router';
+import { environment } from '../../../environments/environment.prod';
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
     constructor(
@@ -11,8 +12,12 @@ export class AuthInterceptor implements HttpInterceptor {
 
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         const authToken = this.sessionManagement.getToken();
+        
         const authReq = req.clone({
-            headers: req.headers.set('Authorization', 'Bearer ' + authToken)
+            setHeaders: {
+                'Authorization': `Bearer ${authToken}`,
+                'AppKey': environment.App_Key  // Including the App_Key from environment
+            }
         });
         return next.handle(authReq).pipe(
             catchError((error: HttpErrorResponse) => {

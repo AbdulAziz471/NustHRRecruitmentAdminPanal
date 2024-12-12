@@ -36,6 +36,12 @@ export const navItems: INavData[] = [
         // iconComponent: { name: 'cil-speedometer' },
         icon: 'nav-icon-bullet'
       },
+      {
+        name: 'Role Page',
+        url: '/RolePage',
+        // iconComponent: { name: 'cil-speedometer' },
+        icon: 'nav-icon-bullet'
+      },
     ]
   },
   
