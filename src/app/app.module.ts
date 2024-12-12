@@ -4,6 +4,7 @@ import { OffcanvasModule } from '@coreui/angular';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SpinnerModule } from '@coreui/angular';
 import {PermissionsComponent} from '../app/Pages/permissions/permissions.component'
+import {RolePageComponent} from '../app/Pages/RolePages/role-page.component'   
 import {
   AfterContentInit,
   AfterViewInit,
@@ -102,6 +103,7 @@ import { PagesComponent } from './Pages/pages/pages.component';
     RolesComponent,
     PermissionsComponent,
     PagesComponent,
+    RolePageComponent,
  ],
   imports: [
     BrowserAnimationsModule,

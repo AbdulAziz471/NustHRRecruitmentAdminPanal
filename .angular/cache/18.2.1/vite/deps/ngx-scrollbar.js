@@ -4,12 +4,12 @@ import {
   coerceElement,
   coerceNumberProperty,
   getRtlScrollAxisType
-} from "./chunk-4ADSVZX6.js";
+} from "./chunk-O3F7LKPR.js";
 import {
   DOCUMENT,
   NgIf,
   isPlatformBrowser
-} from "./chunk-PUFQEOLY.js";
+} from "./chunk-2ZLRKTML.js";
 import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
@@ -30,10 +30,7 @@ import {
   Renderer2,
   RendererStyleFlags2,
   ViewChild,
-  animationFrameScheduler,
-  fromEvent,
   inject,
-  merge,
   setClassMetadata,
   ɵɵInheritDefinitionFeature,
   ɵɵNgOnChangesFeature,
@@ -65,7 +62,13 @@ import {
   ɵɵqueryRefresh,
   ɵɵtemplate,
   ɵɵviewQuery
-} from "./chunk-GHNJSWWD.js";
+} from "./chunk-5SQEDC4B.js";
+import "./chunk-QN5HDKTT.js";
+import {
+  animationFrameScheduler,
+  fromEvent,
+  merge
+} from "./chunk-XPU7EA6D.js";
 import {
   BehaviorSubject,
   EMPTY,
@@ -87,7 +90,7 @@ import {
   takeUntil,
   takeWhile,
   tap
-} from "./chunk-KYCS2DAL.js";
+} from "./chunk-MHK6ZZQX.js";
 import {
   __spreadProps,
   __spreadValues

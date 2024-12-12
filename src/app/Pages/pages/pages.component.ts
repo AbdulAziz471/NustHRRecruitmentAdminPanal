@@ -2,14 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { PageService } from '../../Core/Services/PageService/page.service';
 import Swal from 'sweetalert2';
-interface Page {
-  id?: string; 
-  title: string;
-  pageUrl: string;
-  parentPageId: string;
-  preferenceOrder: string;
-  description: string;
-}
+import { Page } from '../../Core/Interfaces/Page.interface';
 @Component({
   selector: 'app-pages',
   templateUrl: './pages.component.html',
@@ -17,6 +10,7 @@ interface Page {
 })
 export class PagesComponent {
   pages: Page[] = [];
+  modules: any[] = []; 
   pageForm: FormGroup;
   isEdit: boolean = false;
   constructor(
@@ -24,12 +18,11 @@ export class PagesComponent {
     private fb: FormBuilder 
   ) {
 
-     // Initialize the form in the constructor
      this.pageForm = this.fb.group({
       id: [null],
       title: ['', Validators.required],
-      pageUrl: ['', Validators.required],
-      parentPageId: ['', Validators.required],
+      pageUrl: [null],
+      parentPageId: [null],
       preferenceOrder: ['', Validators.required],
       description: ['', Validators.required],
       
@@ -39,18 +32,26 @@ export class PagesComponent {
     this.pageService.GetAllPages().subscribe(
       (data) => {
         this.pages = data;
+        console.log('Pages fetched:', this.pages); 
+        this.filterModules(); 
       },
       (error) => {
-        console.error('Error fetching Roles:', error);
+        console.error('Error fetching Pages:', error);
       }
     );
   }
+  
+  filterModules(): void {
+    this.modules = this.pages.filter(page => !page.pageUrl || page.pageUrl.trim() === '');
+  }
+  
+  
   ngOnInit(): void {
     this.fetchPages();
   }
-
-
   
+
+ 
   onSubmit(): void {
     if (!this.pageForm.valid) {
       Swal.fire('Error', 'Please fill in all required fields.', 'error');
@@ -61,7 +62,8 @@ export class PagesComponent {
   }
 
   private addPage(): void {
-    this.pageService.AddPage(this.pageForm.value).subscribe({
+    const { id, ...formData } = this.pageForm.value;
+    this.pageService.AddPage(formData).subscribe({
       next: () => {
         Swal.fire('Success', 'Page has been added.', 'success');
         this.afterSave();

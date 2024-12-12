@@ -32,10 +32,10 @@
 </c-card>
 
 <c-offcanvas style="width: 40%;" placement="end" id="OffcanvasStart">
-  <c-offcanvas-header>
-    <h5>{{ isEdit ? 'Update Permission' : 'Add Permission' }}</h5>
+  <c-offcanvas-header class="justify-content-between">
+    <h5 class="mb-0">{{ isEdit ? 'Update ' : 'Add ' }} Permission</h5>
     <button cOffcanvasToggle="OffcanvasStart" cButton color="primary" variant="ghost">
-      <svg cIcon name="cil-pencil"></svg>
+      <svg cIcon name="cil-arrow-right"></svg>
     </button>
   </c-offcanvas-header>
   <c-offcanvas-body>

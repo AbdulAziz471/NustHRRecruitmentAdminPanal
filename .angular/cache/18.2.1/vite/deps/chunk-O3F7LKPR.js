@@ -1,6 +1,6 @@
 import {
   isPlatformBrowser
-} from "./chunk-PUFQEOLY.js";
+} from "./chunk-2ZLRKTML.js";
 import {
   ElementRef,
   Inject,
@@ -12,7 +12,7 @@ import {
   ɵɵdefineInjector,
   ɵɵdefineNgModule,
   ɵɵinject
-} from "./chunk-GHNJSWWD.js";
+} from "./chunk-5SQEDC4B.js";
 
 // node_modules/@angular/cdk/fesm2022/coercion.mjs
 function coerceBooleanProperty(value) {
@@ -190,4 +190,4 @@ export {
   _getFocusedElementPierceShadowDom,
   _getEventTarget
 };
-//# sourceMappingURL=chunk-4ADSVZX6.js.map
+//# sourceMappingURL=chunk-O3F7LKPR.js.map

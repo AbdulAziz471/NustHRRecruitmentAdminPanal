@@ -13,7 +13,7 @@ export const navItems: INavData[] = [
   {
     name: 'User Management ',
     url: '/base',
-    iconComponent: { name: 'cil-puzzle' },
+    iconComponent: { name: 'cil-user-follow' },
     children: [
       {
         name: 'Users',
