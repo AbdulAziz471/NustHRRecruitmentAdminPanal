@@ -1,23 +1,20 @@
 
 import { Component } from '@angular/core';
-// import { Page } from '../../Core/Interfaces/Page.interface';
-// import { Permission } from '../../Core/Interfaces/Permission.interface';
-import { PermisssionService } from '../../../app/Core/Services/PermissionsService/permission.service';
+import { PermissionService } from '../../../app/Core/Services/PermissionsService/permission.service';
 import { PageService } from '../../Core/Services/PageService/page.service';
-import { FormBuilder } from '@angular/forms';
 import { RoleService } from '../../Core/Services/RoleService/role.service';
 import { Role } from '../../Core/Interfaces/role.interface';
 import {RolePageService} from '../../Core/Services/RolePageService/role-page.service'
 import Swal from 'sweetalert2';
 
 interface Page {
-  id: string; // Ensuring id is always a string and not undefined
+  id: string; 
   title: string;
   pageUrl: string;
 }
 
 interface Permission {
-  id: string; // Ensuring id is always a string and not undefined
+  id: string;
   title: string;
 }
 @Component({
@@ -33,7 +30,9 @@ selectedRoleId: string | null = null;
 permissionsState: { [pageId: string]: { [permissionId: string]: boolean } } = {};
 roles: Role[] = [];
  constructor(private roleService: RoleService, 
-  private permissionService: PermisssionService, private pageService: PageService, private rolePageService: RolePageService) {
+  private permissionService: PermissionService, 
+  private pageService: PageService, 
+  private rolePageService: RolePageService) {
   this.fetchRoles();
   this.fetchPermissions();
   this.fetchPages();
@@ -68,38 +67,55 @@ fetchPages(): void {
 }
 
 initializePermissionsState() {
-  this.pages.forEach(page => {
+  this.permissionsState = {}; // Reset the state
+  this.pages.forEach((page: any) => {
     this.permissionsState[page.id] = {};
-    this.permissions.forEach(permission => {
-      this.permissionsState[page.id][permission.id] = false; // Initialize all permissions as false
+    this.permissions.forEach((permission: any) => {
+      this.permissionsState[page.id][permission.id] = false; // Default to unchecked
     });
   });
 }
 
+
 onRoleChange(event: Event): void {
   const selectElement = event.target as HTMLSelectElement;
   this.selectedRoleId = selectElement.value;
-    // const roleId = this.selectedRoleId 
-  if (!this.selectedRoleId) return; 
-    
-  this.rolePageService.GetRolePermissionById(this.selectedRoleId).subscribe(
-    data => {
+
+  if (!this.selectedRoleId) return;
+
+  // Fetch role permissions by role ID
+  this.rolePageService.GetRolePermissionById(this.selectedRoleId).subscribe({
+    next: (data) => {
       console.log('Role details fetched:', data);
+      this.initializePermissionsState();
+
+      data.forEach((rolePermission: any) => {
+        const pageId = rolePermission.pageId;
+        const permissions = rolePermission.permission;
+
+        if (this.permissionsState[pageId]) {
+          permissions.forEach((permissionId: string) => {
+            if (this.permissionsState[pageId][permissionId] !== undefined) {
+              this.permissionsState[pageId][permissionId] = true; // Set to true if permission exists
+            }
+          });
+        }
+      });
     },
-    error => {
+    error: (error) => {
       console.error('Error fetching rolePage details:', error);
     }
-  );
+  });
 }
 
+
 togglePermission(pageId: string, permissionId: string, event: Event): void {
-  const element = event.target as HTMLInputElement | null; 
-  if (!element) return; 
-  const isChecked = element.checked;
+  const inputElement = event.target as HTMLInputElement; // Cast to HTMLInputElement
   if (this.permissionsState[pageId]) {
-    this.permissionsState[pageId][permissionId] = isChecked;
+    this.permissionsState[pageId][permissionId] = inputElement.checked; // Access 'checked' property
   }
 }
+
 
 
 savePermissions(): void {

@@ -6,7 +6,7 @@ import { Config } from '../../Configs/Config';
 @Injectable({
   providedIn: 'root'
 })
-export class PermisssionService {
+export class PermissionService {
 
   constructor(private http: HttpClient,private config :Config) {}
  

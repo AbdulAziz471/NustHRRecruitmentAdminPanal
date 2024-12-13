@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { PermisssionService } from '../../../app/Core/Services/PermissionsService/permission.service';
+import { PermissionService } from '../../../app/Core/Services/PermissionsService/permission.service';
 import Swal from 'sweetalert2';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Permission } from '../../Core/Interfaces/Permission.interface';
@@ -14,7 +14,7 @@ export class PermissionsComponent implements OnInit {
   permissionForm: FormGroup;
   isEdit: boolean = false;
   constructor(
-    private permissionService: PermisssionService,
+    private permissionService: PermissionService,
     private fb: FormBuilder 
   ) {
 
