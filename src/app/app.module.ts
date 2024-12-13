@@ -1,4 +1,5 @@
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { IconModule } from '@coreui/icons-angular';
 import { OffcanvasModule } from '@coreui/angular';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -106,6 +107,7 @@ import { PagesComponent } from './Pages/pages/pages.component';
     RolePageComponent,
  ],
   imports: [
+    FormsModule,
     BrowserAnimationsModule,
     OffcanvasModule,SpinnerModule,
     ReactiveFormsModule,

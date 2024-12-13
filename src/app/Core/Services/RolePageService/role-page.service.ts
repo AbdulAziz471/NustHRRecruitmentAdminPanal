@@ -17,6 +17,6 @@ export class RolePageService {
       GetRolePermissionById(Id: string): Observable<any> {
         let params = new HttpParams()
         .set('Id', Id);
-        return this.http.get( this.config.apiurl+"RolePages/GetById",{params});
+        return this.http.get( this.config.apiurl+"RolePages/GetByRoleId",{params});
       }
 }

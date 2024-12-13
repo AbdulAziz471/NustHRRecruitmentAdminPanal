@@ -1,42 +1,45 @@
 <!-- Role Management Layout -->
 <c-row>
-    <c-col sm="5">
-      <h4 class="card-title mb-0" id="traffic">RolePages</h4>
-    </c-col>
-  </c-row>
-
-    
-  <c-card class="my-3 p-2">
-    <c-col md="4" class="mb-2">
-      <label cLabel for="PageName">Select Role</label>
-      <select class="form-select"  id="moduleSelect" (change)="onRoleChange($event)">
-        <option value="" disabled>Select Module</option>
-        <option *ngFor="let role of roles" [value]="role.id">{{ role.name }}</option>
-      </select>      
-      
-    </c-col>
-    <table cTable borderless hover class="mb-0">
-      <thead>
-        <tr>
-          <th class="bg-body-tertiary">Pages</th>
-          <ng-container *ngFor="let permission of permissions">
-            <th class="bg-body-tertiary">{{ permission.title }}</th>
-          </ng-container>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let page of pages">
-          <td>{{ page.title }}</td>
-          <ng-container *ngFor="let permission of permissions">
-            <td>
-              <div class="form-check form-switch">
-                <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
-              </div>
-            </td>
-          </ng-container>
-        </tr>
-      </tbody>
-      
-    </table>
-  </c-card>
-  
+  <c-col sm="5">
+    <h4 class="card-title mb-0" id="traffic">RolePages</h4>
+  </c-col>
+</c-row>
+<c-card class="my-3 p-2">
+  <c-col md="4" class="mb-2">
+    <label cLabel for="PageName">Select Role</label>
+    <select class="form-select"  id="moduleSelect" (change)="onRoleChange($event)">
+      <option value="" disabled>Select Module</option>
+      <option *ngFor="let role of roles" [value]="role.id">{{ role.name }}</option>
+    </select>      
+  </c-col>
+  <table cTable borderless hover class="mb-0">
+    <thead>
+      <tr>
+        <th class="bg-body-tertiary">Pages</th>
+        <ng-container *ngFor="let permission of permissions">
+          <th class="bg-body-tertiary">{{ permission.title }}</th>
+        </ng-container>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let page of pages">
+        <td>{{ page.title }}</td>
+        <ng-container *ngFor="let permission of permissions">
+          <td>
+            <div class="form-check form-switch">
+              <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault"
+              [checked]="permissionsState[page.id][permission.id]"
+              (change)="togglePermission(page.id, permission.id, $event)">
+       
+            </div>
+          </td>
+        </ng-container>
+      </tr>
+    </tbody>
+  </table>
+  <div class="mt-2 w-100">
+    <button class="float-end" cButton variant="outline" (click)="savePermissions()" [disabled]="!selectedRoleId">
+      Save
+    </button>
+  </div>
+</c-card>
