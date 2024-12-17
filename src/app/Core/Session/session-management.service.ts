@@ -13,14 +13,24 @@ export class SessionManagementService {
   }
 
   public saveToken(token: string): void {
-    console.log('Saving token:', token); // Log the token to check what is being saved
     window.sessionStorage.removeItem(TOKEN_KEY);
     window.sessionStorage.setItem(TOKEN_KEY, token);
   }
 
   public getToken(): string | null {
     const token = window.sessionStorage.getItem(TOKEN_KEY);
-    console.log('Retrieved token:', token); // Log the retrieved token to check its format
     return token;
   }
+  public saveUserDetails(userDetails: any) {
+    console.log('Saving user details:', userDetails);
+    sessionStorage.setItem('userDetails', JSON.stringify(userDetails));
+  }
+  
+  public getUserId(): string | null {
+    const userDetails = sessionStorage.getItem('userDetails');
+    console.log('Retrieved user details:', userDetails);
+    return userDetails ? JSON.parse(userDetails).userId : null;
+  }
+  
+  
 }

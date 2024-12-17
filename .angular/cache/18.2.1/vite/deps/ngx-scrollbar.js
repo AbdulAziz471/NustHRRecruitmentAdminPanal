@@ -63,12 +63,12 @@ import {
   ɵɵtemplate,
   ɵɵviewQuery
 } from "./chunk-5SQEDC4B.js";
-import "./chunk-QN5HDKTT.js";
 import {
   animationFrameScheduler,
   fromEvent,
   merge
 } from "./chunk-XPU7EA6D.js";
+import "./chunk-QN5HDKTT.js";
 import {
   BehaviorSubject,
   EMPTY,

@@ -1,4 +1,7 @@
 import {
+  IconDirective
+} from "./chunk-CO3I4D2I.js";
+import {
   Platform,
   _getEventTarget,
   _getFocusedElementPierceShadowDom,
@@ -10,8 +13,9 @@ import {
   normalizePassiveListenerOptions
 } from "./chunk-O3F7LKPR.js";
 import {
-  IconDirective
-} from "./chunk-CO3I4D2I.js";
+  takeUntilDestroyed,
+  toObservable
+} from "./chunk-SOOK3OIC.js";
 import {
   AnimationBuilder,
   animate,
@@ -24,10 +28,6 @@ import {
   trigger,
   useAnimation
 } from "./chunk-B5LFHRBJ.js";
-import {
-  takeUntilDestroyed,
-  toObservable
-} from "./chunk-SOOK3OIC.js";
 import {
   ActivatedRoute,
   NavigationEnd,
@@ -166,12 +166,12 @@ import {
   ɵɵviewQuery,
   ɵɵviewQuerySignal
 } from "./chunk-5SQEDC4B.js";
-import "./chunk-QN5HDKTT.js";
 import {
   fromEvent,
   isObservable,
   merge
 } from "./chunk-XPU7EA6D.js";
+import "./chunk-QN5HDKTT.js";
 import {
   BehaviorSubject,
   Observable,

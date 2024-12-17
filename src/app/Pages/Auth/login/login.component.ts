@@ -40,7 +40,6 @@ export class LoginComponent {
     this.isLoading = true;
     this.loginService.signIn(this.loginForm.value).subscribe(
       (response: LoginResponse) => { 
-        console.log("Received token:", response.accessToken);
         this.sessionManagement.saveToken(response.accessToken);
         
         Swal.fire({
@@ -48,7 +47,6 @@ export class LoginComponent {
           title: 'Login Successful',
           text: 'You are being redirected to the dashboard.'
         });
-        console.log(response.accessToken);
         this.isLoading = false;
         this.isLoginFailed = false;
         this.isLoggedIn = true;

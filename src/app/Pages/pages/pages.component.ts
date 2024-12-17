@@ -32,7 +32,6 @@ export class PagesComponent {
     this.pageService.GetAllPages().subscribe(
       (data) => {
         this.pages = data;
-        console.log('Pages fetched:', this.pages); 
         this.filterModules(); 
       },
       (error) => {

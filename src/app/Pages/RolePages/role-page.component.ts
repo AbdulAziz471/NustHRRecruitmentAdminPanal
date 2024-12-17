@@ -86,9 +86,8 @@ export class RolePageComponent {
     // Fetch role permissions by role ID
     this.rolePageService.GetRolePermissionById(this.selectedRoleId).subscribe({
       next: (data) => {
-        console.log('Role details fetched:', data);
         this.initializePermissionsState();
-
+      
         data.forEach((rolePermission: any) => {
           const pageId = rolePermission.pageId;
           const permissions = rolePermission.permission;
@@ -146,7 +145,6 @@ export class RolePageComponent {
       this.rolePageService.UpdateRolePermission(permissionsArray).subscribe({
         next: (response) => {
           Swal.fire('Success', 'Permissions has been updated.', 'success');
-          console.log('Permissions updated successfully:', response);
         },
         error: (error) => {
           console.error('Error updating permissions:', error);
