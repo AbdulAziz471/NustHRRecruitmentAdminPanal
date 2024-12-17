@@ -2,6 +2,7 @@ import { SessionManagementService } from '../../Core/Session/session-management.
 import {AdminService} from "../../Core/Services/Admin/admin.service"
 import { navItems } from './_nav';
 import { Component } from "@angular/core";
+import { NavItem } from '../../Core/Interfaces/NavItems.interface';
 function isOverflown(element: HTMLElement) {
   return (
     element.scrollHeight > element.clientHeight ||
@@ -16,6 +17,7 @@ function isOverflown(element: HTMLElement) {
 })
 export class DefaultLayoutComponent {
   public navItems = navItems;
+  public navItems2 = navItems;
   constructor(
     private adminService: AdminService,
     private sessionService: SessionManagementService 
@@ -33,8 +35,8 @@ export class DefaultLayoutComponent {
   if (userId) {
     this.adminService.getUserPagesById(userId).subscribe({
       next: (data) => {
-        this.navItems = data;
-        console.log("Navigation data loaded:", data);
+        this.navItems2 = data;
+        console.log("Navigation data loaded:", this.navItems2);
       },
       error: (error) => {
         console.error('Error loading user nav items:', error);
@@ -46,6 +48,16 @@ export class DefaultLayoutComponent {
   }
 }
 
+myNavItems: NavItem[] = [
+  { name: 'Dashboard', url: '/', icon: 'cil-speedometer', active: true },
+  { name: 'With badge', url: '/badge', icon: 'cil-star', badge: 'NEW' },
+  {
+    name: 'Nav dropdown', url: '#', icon: 'cil-folder-open', children: [
+      { name: 'Nav dropdown item', url: '/sub1' },
+      { name: 'Nav dropdown item', url: '/sub2' }
+    ]
+  }
+];
 
   onScrollbarUpdate($event: any) {
   }

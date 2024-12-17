@@ -62,6 +62,7 @@ import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common
 import { AuthService } from './Core/Services/Authentication/auth.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { DefaultFooterComponent, DefaultHeaderComponent, DefaultLayoutComponent } from './layout';
+import {DefaultSideBarComponent } from "../app/layout/default-layout/default-side-bar/default-side-bar.component"
 import { DashboardComponent } from './Pages/dashboard/dashboard.component';
 import { SidebarModule } from '@coreui/angular';
 import {
@@ -100,6 +101,7 @@ import { PagesComponent } from './Pages/pages/pages.component';
     DefaultLayoutComponent,
     DefaultHeaderComponent,
     DefaultFooterComponent,
+    DefaultSideBarComponent,
     UserComponent,
     RolesComponent,
     PermissionsComponent,

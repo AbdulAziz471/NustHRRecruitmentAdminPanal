@@ -1,11 +1,9 @@
-// src/app/core/interfaces/navigation.interface.ts
 
-export interface NavItems {
-    id: string;
-    title: string;
-    description?: string;
-    pageUrl?: string | null;  
-    preferenceOrder: number;
-    subPages?: NavItems[];  
-  }
-  
+export interface NavItem {
+  name: string;
+  url: string;
+  icon?: string;
+  active?: boolean;
+  badge?: string;
+  children?: NavItem[];
+}
