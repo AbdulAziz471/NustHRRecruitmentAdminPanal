@@ -6,23 +6,21 @@ const TOKEN_KEY = 'auth-token';
   providedIn: 'root'
 })
 export class SessionManagementService {
+  constructor() {}
 
-  constructor() { }
-
-  // Clear all session storage items
   public signOut(): void {
     window.sessionStorage.clear();
   }
 
-  // Save the token into session storage
   public saveToken(token: string): void {
-    window.sessionStorage.removeItem(TOKEN_KEY); // Ensure no previous token is stored
+    console.log('Saving token:', token); // Log the token to check what is being saved
+    window.sessionStorage.removeItem(TOKEN_KEY);
     window.sessionStorage.setItem(TOKEN_KEY, token);
   }
 
-  // Retrieve the token from session storage
   public getToken(): string | null {
-    return window.sessionStorage.getItem(TOKEN_KEY);
+    const token = window.sessionStorage.getItem(TOKEN_KEY);
+    console.log('Retrieved token:', token); // Log the retrieved token to check its format
+    return token;
   }
-
 }

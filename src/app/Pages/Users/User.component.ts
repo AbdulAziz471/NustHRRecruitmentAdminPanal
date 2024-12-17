@@ -3,7 +3,7 @@
 import { Component, OnInit } from '@angular/core';
 import Swal from 'sweetalert2';
 import { User } from '../../Core/Interfaces/User.interface';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UserService } from '../../Core/Services/UserService/user.service';
 import { RoleService } from '../../Core/Services/RoleService/role.service';
 import { Role } from '../../Core/Interfaces/role.interface';
@@ -14,10 +14,11 @@ import { Role } from '../../Core/Interfaces/role.interface';
 
 export class UserComponent implements OnInit {
   users: User[] = [];
+  roles: Role[] = [];
   userForm: FormGroup;
   isEdit: boolean = false;
   constructor(
-    // private roleService: RoleService,
+    private roleService: RoleService,
     private userService: UserService,
     private fb: FormBuilder 
   ) {
@@ -29,6 +30,7 @@ export class UserComponent implements OnInit {
       lEmployeeID: ['', Validators.required],
       lDirectorateID: ['', Validators.required],
       bActive: [false],
+      roles: ['', Validators.required]  
     });
     
   }
@@ -42,32 +44,68 @@ export class UserComponent implements OnInit {
       }
     );
   }
+  fetchRoles(): void {
+    this.roleService.GetAllRolesList().subscribe(
+      (data) => {
+        this.roles = data;
+      },
+      (error) => {
+        console.error('Error fetching Users:', error);
+      }
+    );
+  }
   ngOnInit(): void {
     this.fetchUsers();
+    this.fetchRoles();
   }
 
 
-  
+  get rolesFormArray(): FormArray {
+    return this.userForm.get('roles') as FormArray;
+  }
   onSubmit(): void {
     if (!this.userForm.valid) {
       Swal.fire('Error', 'Please fill in all required fields.', 'error');
       return;
     }
-
     this.isEdit ? this.updateUser() : this.addUser();
   }
 
-  private addUser(): void {
-    const { id, ...formData } = this.userForm.value;
-    this.userService.AddUser(formData).subscribe({
-      next: () => {
-        Swal.fire('Success', 'User has been added.', 'success');
-        this.afterSave();
-      },
-      error: (error) => this.handleError('Error adding user', error)
-    });
-  }
 
+  addUser(): void {
+    const { id, ...formData } = this.userForm.value;
+    const submitData = this.prepareSubmitData(formData);
+    this.userService.AddUser(submitData).subscribe({
+        next: () => {
+            Swal.fire('Success', 'User has been added.', 'success');
+            this.afterSave();
+        },
+        error: (error) => this.handleError('Error adding user', error)
+    });
+}
+
+prepareSubmitData(formData: any): any {
+  const roleID = formData.roles; // This is the single role ID from the form
+  const roleObject = this.roles.find(role => role.id === roleID);
+
+  // Create roles array as expected
+  const rolesArray = roleObject ? [{
+    id: roleObject.id,
+    name: roleObject.name
+  }] : [];
+
+  // Construct the user object by removing the roles from formData
+  const { roles, ...user } = formData;
+
+  return {
+    user: user, // All other data belongs to user, excluding roles
+    roles: rolesArray // Separate roles array as specified
+  };
+}
+
+  
+  
+  
   
   private updateUser(): void {
     this.userService.UpdateUser(this.userForm.value).subscribe({
@@ -92,16 +130,21 @@ export class UserComponent implements OnInit {
   }
 
   onEditUser(user: User): void {
-    this.userForm.setValue({
-      id: user.id, // Ensure this is part of your form group
+    // Reset the form with all user values except for roles
+    this.userForm.reset({
+      id: user.id,
       sName: user.sName,
       sEmail: user.sEmail,
       lEmployeeID: user.lEmployeeID,
       lDirectorateID: user.lDirectorateID,
-      bActive: user.bActive
+      bActive: user.bActive,
+      roles: user.roles && user.roles.length > 0 ? user.roles[0].id : ''  
     });
+
     this.isEdit = true;
-  }
+}
+
+
   
   private handleError(message: string, error: any): void {
     console.error(message, error);

@@ -4,6 +4,7 @@ import { AuthService } from '../../../Core/Services/Authentication/auth.service'
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { SessionManagementService } from '../../../../../src/app/Core/Session/session-management.service';
 import Swal from 'sweetalert2';
+import { LoginResponse } from '../../../Core/Interfaces/LoginResponse.interface';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -38,16 +39,16 @@ export class LoginComponent {
   Login(): void {
     this.isLoading = true;
     this.loginService.signIn(this.loginForm.value).subscribe(
-      (token: string) => {
-        console.log("Received token:", token);
-        this.sessionManagement.saveToken(token);
+      (response: LoginResponse) => { 
+        console.log("Received token:", response.accessToken);
+        this.sessionManagement.saveToken(response.accessToken);
         
         Swal.fire({
           icon: 'success',
           title: 'Login Successful',
           text: 'You are being redirected to the dashboard.'
         });
-         console.log(token);
+        console.log(response.accessToken);
         this.isLoading = false;
         this.isLoginFailed = false;
         this.isLoggedIn = true;
@@ -78,7 +79,8 @@ export class LoginComponent {
         }
       }
     );
-  }
+  } 
+
   
   ngOnInit(): void {
     const savedUsername = localStorage.getItem('savedUsername');

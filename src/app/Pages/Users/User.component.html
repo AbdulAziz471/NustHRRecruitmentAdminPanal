@@ -54,6 +54,13 @@
         <label cLabel for="roleName">Email</label>
         <input cFormControl id="roleName" type="text" formControlName="sEmail" class="form-control"/>
       </c-col>
+      <c-col md="6" >
+        <label cLabel for="PageName">Select Role</label>
+        <select class="form-select" id="moduleSelect" formControlName="roles">
+          <option value="" disabled>Select Role</option>
+          <option *ngFor="let role of roles" [value]="role.id">{{ role.name }}</option>
+        </select>              
+      </c-col>
       <c-col md="6">
         <label cLabel for="roleName">Employee ID </label>
         <input cFormControl id="roleName" type="text" formControlName="lEmployeeID" class="form-control"/>

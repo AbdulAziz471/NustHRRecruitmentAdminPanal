@@ -5,4 +5,9 @@ export interface User {
     lEmployeeID: string;
     lDirectorateID: string;
     bActive: true;
+    roles?: [
+      {
+      id?: string;
+      name: string;
+    }];
   }
