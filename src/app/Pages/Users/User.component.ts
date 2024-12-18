@@ -107,16 +107,18 @@ prepareSubmitData(formData: any): any {
   
   
   
-  private updateUser(): void {
-    this.userService.UpdateUser(this.userForm.value).subscribe({
+private updateUser(): void {
+  const { id, ...formData } = this.userForm.value;
+  const submitData = this.prepareSubmitData({ id, ...formData });
+  this.userService.UpdateUser(submitData).subscribe({
       next: () => {
-        Swal.fire('Success', 'User has been updated.', 'success');
-        this.afterSave();
+          Swal.fire('Success', 'User has been updated.', 'success');
+          this.afterSave();
       },
       error: (error) => this.handleError('Error updating user', error)
-    });
-  }
-  
+  });
+}
+
 
 
   private afterSave(): void {

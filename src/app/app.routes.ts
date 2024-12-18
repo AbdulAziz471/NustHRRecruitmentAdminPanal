@@ -32,7 +32,7 @@ export const routes: Routes = [
         component: RolesComponent 
       },
       {
-        path: 'permissions',
+        path: 'Permissions',
         component: PermissionsComponent 
       },
       {

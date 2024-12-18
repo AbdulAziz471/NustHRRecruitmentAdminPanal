@@ -3,30 +3,22 @@
   visible>
   <c-sidebar-header class="border-bottom">
     <c-sidebar-brand [routerLink]="[]">
-      <!-- <svg [class]="{icon: false}" cIcon class="sidebar-brand-full" height="32" name="logo" title="CoreUI Logo"></svg>
-      <svg cIcon class="sidebar-brand-narrow" height="32" name="signet" title="CoreUI Logo"></svg> -->
-      <img style="height: 32px;" src="../../../assets/brand/ne2.jpg" alt="">
+    <img style="height: 32px;" src="../../../assets/brand/ne2.jpg" alt="">
     </c-sidebar-brand>
   </c-sidebar-header>
-<!-- default-side-bar.component.html -->
-<!-- default-side-bar.component.html -->
-<ul class="sidebar-nav">
+  <c-sidebar-nav [navItems]="navItems" />
+<!-- <ul class="sidebar-nav">
   <li *ngFor="let item of navItems" class="nav-item">
-    <!-- Use routerLink for SPA navigation and routerLinkActive to automatically highlight the active link -->
     <a class="nav-link" [routerLink]="item.pageUrl" routerLinkActive="active">
-      <!-- Display the icon if it exists, ensure you use a conditional class binding -->
       {{ item.title }}
-      <!-- Display the badge if it exists -->
-     
     </a>
-    <!-- Check if the item has children and render them as nested links -->
     <ul *ngIf="item.subPages" class="nav-group-items">
       <li *ngFor="let subItem of item.subPages" class="nav-item">
         <a class="nav-link" [routerLink]="subItem.pageUrl">{{ subItem.title }}</a>
       </li>
     </ul>
   </li>
-</ul>
+</ul> -->
 
 
 </c-sidebar>
