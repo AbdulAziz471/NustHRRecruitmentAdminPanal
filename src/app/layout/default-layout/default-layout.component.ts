@@ -2,7 +2,7 @@ import { SessionManagementService } from '../../Core/Session/session-management.
 import {AdminService} from "../../Core/Services/Admin/admin.service"
 import { Component } from "@angular/core";
 import { navItems } from './_nav';
-import { INavData } from '@coreui/angular';
+import {SideBarNav} from "../../Core/Interfaces/SideBarNav.interface"
 function isOverflown(element: HTMLElement) {
   return (
     element.scrollHeight > element.clientHeight ||
@@ -16,56 +16,36 @@ function isOverflown(element: HTMLElement) {
   styleUrls: ['./default-layout.component.scss'],
 })
 export class DefaultLayoutComponent {
-  // navItems: INavData[] = []; 
-  public navItems = navItems;
+  // public navItems = navItems;
+  sidebarNav: SideBarNav[] = [];
+  activeItemId: string | null = null;
   constructor(
     private adminService: AdminService,
     private sessionService: SessionManagementService 
   ) {}
 
   ngOnInit() {
-    console.log("ngOnInit called");
-    // this.loadUserNavItems();
+    this.loadUserNavItems();
   }
   
 
-  
-// loadUserNavItems() {
-//   const userId = this.sessionService.getUserId();
-//   if (userId) {
-//       this.adminService.getUserPagesById(userId).subscribe({
-//           next: (data: NavItem[]) => {  // Assuming your API data directly matches the NavItem[] structure
-//               this.navItems = data.map((item: NavItem) => ({
-//                   id: item.id,
-//                   title: item.title,
-//                   description: item.description,
-//                   pageUrl: item.pageUrl,
-//                   parentPageId: item.parentPageId,
-//                   createdBy: item.createdBy,
-//                   createdOn: item.createdOn,
-//                   preferenceOrder: item.preferenceOrder,
-//                   subPages: item.subPages ? item.subPages.map((subItem: NavItem) => ({
-//                       id: subItem.id,
-//                       title: subItem.title,
-//                       description: subItem.description,
-//                       pageUrl: subItem.pageUrl,
-//                       parentPageId: subItem.parentPageId,
-//                       createdBy: subItem.createdBy,
-//                       createdOn: subItem.createdOn,
-//                       preferenceOrder: subItem.preferenceOrder,
-//                       subPages: subItem.subPages  // Further nesting, apply similar mapping if needed
-//                   })) : []
-//               }));
-//               console.log("Transformed Navigation data:", this.navItems);
-//           },
-//           error: (error) => console.error('Error loading user nav items:', error)
-//       });
-//   } else {
-//       console.error('No user ID found in session.');
-//   }
-// }
+  loadUserNavItems(): void {
+    const userId = this.sessionService.getUserId();
+    if (userId) {
+      this.adminService.getUserPagesById(userId).subscribe({
+        next: (data: SideBarNav[]) => {
+          this.sidebarNav = data;
+        },
+        error: (error) => console.error('Error loading user nav items:', error)
+      });
+    } else {
+      console.error('No user ID found in session.');
+    }
+  }
 
-  
+  toggleChildrenVisibility(itemId: string): void {
+    this.activeItemId = this.activeItemId === itemId ? null : itemId;  // Toggle visibility
+  }
   onScrollbarUpdate($event: any) {
   }
 }

@@ -1,4 +1,4 @@
-export interface NavItem {
+export interface SideBarNav {
   id: string;
   title: string;
   description?: string;
@@ -7,5 +7,5 @@ export interface NavItem {
   createdBy?: string;
   createdOn?: string;
   preferenceOrder?: number;
-  subPages?: NavItem[];
+  subPages?: SideBarNav[];
 }

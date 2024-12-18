@@ -6,19 +6,25 @@
     <img style="height: 32px;" src="../../../assets/brand/ne2.jpg" alt="">
     </c-sidebar-brand>
   </c-sidebar-header>
-  <c-sidebar-nav [navItems]="navItems" />
-<!-- <ul class="sidebar-nav">
-  <li *ngFor="let item of navItems" class="nav-item">
-    <a class="nav-link" [routerLink]="item.pageUrl" routerLinkActive="active">
+  <!-- <c-sidebar-nav [navItems]="navItems" /> -->
+<ul class="sidebar-nav">
+  <li *ngFor="let item of sidebarNav" class="nav-item">
+    <a class="nav-link" [class.nav-group-toggle]="item.subPages && item.subPages.length > 0"
+       [routerLink]="item.subPages ? '#' : item.pageUrl"
+       (click)="item.subPages? toggleChildrenVisibility(item.id) : null"
+       routerLinkActive="active">
       {{ item.title }}
     </a>
-    <ul *ngIf="item.subPages" class="nav-group-items">
+    <ul *ngIf="item.subPages && activeItemId === item.id" class="nav-group-items">
       <li *ngFor="let subItem of item.subPages" class="nav-item">
         <a class="nav-link" [routerLink]="subItem.pageUrl">{{ subItem.title }}</a>
       </li>
     </ul>
   </li>
-</ul> -->
+</ul>
+
+
+
 
 
 </c-sidebar>

@@ -15,16 +15,15 @@ export const routes: Routes = [
     pathMatch: 'full'
   },
   {
-    path: 'admin',
+    path: '',
     component: DefaultLayoutComponent,
-    // canActivate: [authGuard],
     children: [
       {
         path: 'dashboard',
         component: DashboardComponent 
       },
       {
-        path: 'User',
+        path: 'users',
         component: UserComponent 
       },
       {
