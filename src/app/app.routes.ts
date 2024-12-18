@@ -15,7 +15,7 @@ export const routes: Routes = [
     pathMatch: 'full'
   },
   {
-    path: '',
+    path: 'admin',
     component: DefaultLayoutComponent,
     // canActivate: [authGuard],
     children: [
@@ -32,7 +32,7 @@ export const routes: Routes = [
         component: RolesComponent 
       },
       {
-        path: 'Permissions',
+        path: 'permissions',
         component: PermissionsComponent 
       },
       {

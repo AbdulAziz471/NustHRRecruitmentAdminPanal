@@ -50,7 +50,7 @@ export class LoginComponent {
         this.isLoading = false;
         this.isLoginFailed = false;
         this.isLoggedIn = true;
-        this.router.navigate(['dashboard']);
+        this.router.navigate(['admin/dashboard']);
       },
       (error: any) => {
         this.isLoading = false;

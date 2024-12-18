@@ -2,6 +2,7 @@ import { SessionManagementService } from '../../Core/Session/session-management.
 import {AdminService} from "../../Core/Services/Admin/admin.service"
 import { Component } from "@angular/core";
 import { navItems } from './_nav';
+import { INavData } from '@coreui/angular';
 function isOverflown(element: HTMLElement) {
   return (
     element.scrollHeight > element.clientHeight ||
