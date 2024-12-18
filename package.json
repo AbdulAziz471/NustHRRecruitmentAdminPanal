@@ -13,7 +13,8 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve -o",
-    "build": "ng build",
+   "postinstall": "chmod +x ./node_modules/.bin/ng",
+  "build": "ng build --prod",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },
