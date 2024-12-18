@@ -1,6 +1,5 @@
 import { SessionManagementService } from '../../Core/Session/session-management.service';
 import {AdminService} from "../../Core/Services/Admin/admin.service"
-import { navItems } from './_nav';
 import { Component } from "@angular/core";
 import { NavItem } from '../../Core/Interfaces/NavItems.interface';
 function isOverflown(element: HTMLElement) {
@@ -16,8 +15,7 @@ function isOverflown(element: HTMLElement) {
   styleUrls: ['./default-layout.component.scss'],
 })
 export class DefaultLayoutComponent {
-  public navItems = navItems;
-  public navItems2 = navItems;
+  navItems: NavItem[] = []; 
   constructor(
     private adminService: AdminService,
     private sessionService: SessionManagementService 
@@ -29,36 +27,43 @@ export class DefaultLayoutComponent {
   }
   
 
-  loadUserNavItems() {
+  
+loadUserNavItems() {
   const userId = this.sessionService.getUserId();
-  console.log("Attempting to load nav items for UserID:", userId);
   if (userId) {
-    this.adminService.getUserPagesById(userId).subscribe({
-      next: (data) => {
-        this.navItems2 = data;
-        console.log("Navigation data loaded:", this.navItems2);
-      },
-      error: (error) => {
-        console.error('Error loading user nav items:', error);
-        console.error('Error details:', error.message);
-      }
-    });
+      this.adminService.getUserPagesById(userId).subscribe({
+          next: (data: NavItem[]) => {  // Assuming your API data directly matches the NavItem[] structure
+              this.navItems = data.map((item: NavItem) => ({
+                  id: item.id,
+                  title: item.title,
+                  description: item.description,
+                  pageUrl: item.pageUrl,
+                  parentPageId: item.parentPageId,
+                  createdBy: item.createdBy,
+                  createdOn: item.createdOn,
+                  preferenceOrder: item.preferenceOrder,
+                  subPages: item.subPages ? item.subPages.map((subItem: NavItem) => ({
+                      id: subItem.id,
+                      title: subItem.title,
+                      description: subItem.description,
+                      pageUrl: subItem.pageUrl,
+                      parentPageId: subItem.parentPageId,
+                      createdBy: subItem.createdBy,
+                      createdOn: subItem.createdOn,
+                      preferenceOrder: subItem.preferenceOrder,
+                      subPages: subItem.subPages  // Further nesting, apply similar mapping if needed
+                  })) : []
+              }));
+              console.log("Transformed Navigation data:", this.navItems);
+          },
+          error: (error) => console.error('Error loading user nav items:', error)
+      });
   } else {
-    console.error('No user ID found in session.');
+      console.error('No user ID found in session.');
   }
 }
 
-myNavItems: NavItem[] = [
-  { name: 'Dashboard', url: '/', icon: 'cil-speedometer', active: true },
-  { name: 'With badge', url: '/badge', icon: 'cil-star', badge: 'NEW' },
-  {
-    name: 'Nav dropdown', url: '#', icon: 'cil-folder-open', children: [
-      { name: 'Nav dropdown item', url: '/sub1' },
-      { name: 'Nav dropdown item', url: '/sub2' }
-    ]
-  }
-];
-
+  
   onScrollbarUpdate($event: any) {
   }
 }
