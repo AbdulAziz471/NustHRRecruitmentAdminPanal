@@ -6,6 +6,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SpinnerModule } from '@coreui/angular';
 import {PermissionsComponent} from '../app/Pages/permissions/permissions.component'
 import {RolePageComponent} from '../app/Pages/RolePages/role-page.component'   
+import {PendingJobsComponent } from '../app/Pages/Job/pending-jobs/pending-jobs.component'
 import {
   AfterContentInit,
   AfterViewInit,
@@ -92,6 +93,7 @@ import {UserComponent} from './Pages/users/User.component'
 import {RolesComponent} from './Pages/roles/roles.component'
 import { AuthInterceptor } from './Core/Interceptors/auth-interceptor.service';
 import { PagesComponent } from './Pages/pages/pages.component';
+import { PublishJobsComponent } from './Pages/Job/publish-jobs/publish-jobs.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -105,6 +107,8 @@ import { PagesComponent } from './Pages/pages/pages.component';
     PermissionsComponent,
     PagesComponent,
     RolePageComponent,
+    PendingJobsComponent,
+    PublishJobsComponent,
  ],
   imports: [
     FormsModule,

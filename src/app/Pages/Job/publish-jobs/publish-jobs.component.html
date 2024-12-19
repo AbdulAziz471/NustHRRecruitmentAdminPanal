@@ -1,1 +1,84 @@
-<p>publish-jobs works!</p>
+<c-row>
+    <c-col sm="5">
+      <h4 class="card-title mb-0" id="traffic">Publish Jobs</h4>
+    </c-col>
+    <c-col  class="d-block">
+    </c-col>
+  </c-row>
+  
+ <c-card class="my-2">
+    <table cTable borderless hover class="mb-0">
+      <thead>
+        <tr>
+          <th class="bg-body-tertiary">JOb Title</th>
+          <th class="bg-body-tertiary">Description</th>
+          <th class="bg-body-tertiary">Location</th>
+          <th class="bg-body-tertiary">Salary Range</th>
+          <th class="bg-body-tertiary">View</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let job of pendingJobs">
+          <td>{{ job.sJobTitle }}</td>
+          <td style="max-width: 150px;" ><span  [innerHTML]="job.sJobDescription"></span></td>
+          <td>{{ job.sJobLocation }}</td>
+          <td>{{ job.sSalaryText }}</td>
+          <td >
+            <button cOffcanvasToggle="OffcanvasStart" cButton color="primary" variant="ghost"(click)="onEditJob(job)" >
+              <svg cIcon name="cil-menu"></svg>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </c-card>
+    
+  <c-offcanvas style="width: 75%;" placement="end" id="OffcanvasStart">
+    <c-offcanvas-header class="justify-content-between">
+      <h5 class="mb-0">Publish Job</h5>
+      <button cOffcanvasToggle="OffcanvasStart" cButton color="primary" variant="ghost">
+        <svg cIcon name="cil-arrow-right"></svg>
+      </button>
+    </c-offcanvas-header>
+    <c-offcanvas-body>
+      <form [formGroup]="jobForm"cForm class="row g-3">
+        <c-col md="6">
+          <label cLabel for="sJobTitle">Title</label>
+          <input cFormControl id="sJobTitle" type="text" formControlName="sJobTitle" class="form-control"/>
+        </c-col>
+        <c-col md="6">
+          <label cLabel for="sJobLocation">sJobLocation</label>
+          <input cFormControl id="sJobLocation" type="text" formControlName="sJobLocation" class="form-control"/>
+        </c-col>
+        <c-col md="6">
+          <label cLabel for="lMinimumQualificationId">lMinimumQualificationId</label>
+          <input cFormControl id="lMinimumQualificationId" type="text" formControlName="lMinimumQualificationId" class="form-control"  />
+        </c-col>
+        <c-col md="6">
+          <label cLabel for="sJobType">sJobType</label>
+          <input cFormControl id="sJobType" type="text" formControlName="sJobType" class="form-control"/>
+        </c-col>
+        <c-col md="6">
+          <label cLabel for="sExperience">sExperience</label>
+          <input cFormControl id="sExperience" type="text" formControlName="sExperience" class="form-control"/>
+        </c-col>
+        <c-col md="6">
+          <label cLabel for="sJobDescription">sJobDescription</label>
+          <input cFormControl id="sJobDescription" type="text" formControlName="sJobDescription" class="form-control"/>
+        </c-col>
+        <c-col md="6">
+          <label cLabel for="sSkillsRequired">sSkillsRequired</label>
+          <input cFormControl id="sSkillsRequired" type="text" formControlName="sSkillsRequired" class="form-control"/>
+        </c-col>
+        <c-col md="6">
+          <label cLabel for="terms">terms</label>
+          <input cFormControl id="terms" type="text" formControlName="terms" class="form-control"/>
+        </c-col>
+        <c-col md="6">
+          <label cLabel for="sQualification">sQualification</label>
+          <input cFormControl id="sQualification" type="text" formControlName="sQualification" class="form-control"/>
+        </c-col>
+      </form>
+    </c-offcanvas-body>
+  </c-offcanvas>
+  
