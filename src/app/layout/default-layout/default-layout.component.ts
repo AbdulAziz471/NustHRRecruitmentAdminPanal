@@ -16,7 +16,7 @@ function isOverflown(element: HTMLElement) {
   styleUrls: ['./default-layout.component.scss'],
 })
 export class DefaultLayoutComponent {
-  // public navItems = navItems;
+  public navItems = navItems;
   sidebarNav: SideBarNav[] = [];
   activeItemId: string | null = null;
   constructor(
@@ -34,7 +34,13 @@ export class DefaultLayoutComponent {
     if (userId) {
       this.adminService.getUserPagesById(userId).subscribe({
         next: (data: SideBarNav[]) => {
-          this.sidebarNav = data;
+          this.sidebarNav = data.sort((a, b) => (a.preferenceOrder  || Number.MAX_VALUE ) - (b.preferenceOrder  || Number.MAX_VALUE) );
+          this.sidebarNav.forEach(item => {
+            if(item.subPages){
+
+              item.subPages =  item.subPages.sort((a, b) => (a.preferenceOrder  || Number.MAX_VALUE ) - (b.preferenceOrder  || Number.MAX_VALUE) );
+            }
+          })
         },
         error: (error) => console.error('Error loading user nav items:', error)
       });
@@ -44,7 +50,7 @@ export class DefaultLayoutComponent {
   }
 
   toggleChildrenVisibility(itemId: string): void {
-    this.activeItemId = this.activeItemId === itemId ? null : itemId;  // Toggle visibility
+    this.activeItemId = this.activeItemId === itemId ? null : itemId;  
   }
   onScrollbarUpdate($event: any) {
   }

@@ -6,22 +6,31 @@
     <img style="height: 32px;" src="../../../assets/brand/ne2.jpg" alt="">
     </c-sidebar-brand>
   </c-sidebar-header>
-  <!-- <c-sidebar-nav [navItems]="navItems" /> -->
-<ul class="sidebar-nav">
-  <li *ngFor="let item of sidebarNav" class="nav-item">
-    <a class="nav-link" [class.nav-group-toggle]="item.subPages && item.subPages.length > 0"
-       [routerLink]="item.subPages ? '#' : item.pageUrl"
-       (click)="item.subPages? toggleChildrenVisibility(item.id) : null"
-       routerLinkActive="active">
-      {{ item.title }}
-    </a>
-    <ul *ngIf="item.subPages && activeItemId === item.id" class="nav-group-items">
-      <li *ngFor="let subItem of item.subPages" class="nav-item">
-        <a class="nav-link" [routerLink]="subItem.pageUrl">{{ subItem.title }}</a>
-      </li>
-    </ul>
-  </li>
-</ul>
+  <ul class="sidebar-nav">
+    <li *ngFor="let item of sidebarNav" class="nav-item">
+      <!-- Add routerLinkActive="active" to the main navigation link -->
+      <a class="nav-link" [class.nav-group-toggle]="item.subPages && item.subPages.length > 0"
+         [routerLink]="item.subPages ? '#' : item.pageUrl"
+         (click)="toggleChildrenVisibility(item.id)"
+         routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+        {{ item.title }}
+      </a>
+      <ul [class.sub-open]="activeItemId === item.id" class="nav-group-items">
+        <li *ngFor="let subItem of item.subPages" class="nav-item">
+          <!-- Also apply routerLinkActive="active" to sub navigation links -->
+          <a class="nav-link" [routerLink]="subItem.pageUrl" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+            <span class="nav-icon"><span class="nav-icon-bullet"></span></span>   {{ subItem.title }}
+          
+          
+          </a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+  
+  
+  
+  
 
 
 
