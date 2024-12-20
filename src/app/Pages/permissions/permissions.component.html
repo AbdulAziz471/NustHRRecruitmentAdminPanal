@@ -45,7 +45,15 @@
         <input cFormControl id="permissionName" type="text" formControlName="title" class="form-control"/>
       </c-col>
       <c-col>
-        <button cButton type="submit" class="col-12">{{ isEdit ? 'Update' : 'Create' }} Permission</button>
+        <!-- <button cButton type="submit" class="col-12">{{ isEdit ? 'Update' : 'Create' }} Permission</button> -->
+        <button type="submit" [disabled]="isLoading" cButton type="submit" class="col-12">
+          <ng-container *ngIf="!isLoading; else loading">
+            {{ isEdit ? 'Update' : 'Create' }} Permission
+          </ng-container>
+          <ng-template #loading>
+            <c-spinner size="sm" color="light"></c-spinner>
+          </ng-template>
+        </button>
       </c-col>
     </form>
   </c-offcanvas-body>

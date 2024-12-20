@@ -70,7 +70,15 @@
         </select>
       </c-col>
       <c-col>
-        <button cButton type="submit" class="col-12">{{ isEdit ? 'Update' : 'Create' }} Page/Module</button>
+        <!-- <button cButton type="submit" class="col-12">{{ isEdit ? 'Update' : 'Create' }} Page/Module</button> -->
+        <button type="submit" [disabled]="isLoading" cButton  class="col-12">
+          <ng-container *ngIf="!isLoading; else loading">
+            {{ isEdit ? 'Update' : 'Create' }} Page/Module
+          </ng-container>
+          <ng-template #loading>
+            <c-spinner size="sm" color="light"></c-spinner>
+          </ng-template>
+        </button>
       </c-col>
     </form>
   </c-offcanvas-body>

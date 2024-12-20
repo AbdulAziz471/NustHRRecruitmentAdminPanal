@@ -13,6 +13,7 @@ export class PermissionsComponent implements OnInit {
   permissions: Permission[] = [];
   permissionForm: FormGroup;
   isEdit: boolean = false;
+  isLoading: boolean = false;
   constructor(
     private permissionService: PermissionService,
     private fb: FormBuilder 
@@ -50,24 +51,33 @@ export class PermissionsComponent implements OnInit {
   }
 
   private addPermission(): void {
+    this.isLoading = true;
     const { id, ...formData } = this.permissionForm.value; // Destructure to exclude 'id'
     this.permissionService.Add(formData).subscribe({
+      
       next: () => {
+        this.isLoading = false;
         Swal.fire('Success', 'Role has been added.', 'success');
         this.afterSave();
       },
-      error: (error) => this.handleError('Error adding role', error)
+      error: (error) => {
+        this.isLoading = false;
+        this.handleError('Error adding role', error)}
     });
   }
   
 
   private updateRole(): void {
+    this.isLoading = true;
     this.permissionService.Update(this.permissionForm.value).subscribe({
       next: () => {
+        this.isLoading = false;
         Swal.fire('Success', 'Permission has been updated.', 'success');
         this.afterSave();
       },
-      error: (error) => this.handleError('Error updating role', error)
+      error: (error) => {
+        this.isLoading = false;
+        this.handleError('Error updating role', error)}
     });
   }
 

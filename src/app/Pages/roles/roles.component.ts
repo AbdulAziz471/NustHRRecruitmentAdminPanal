@@ -13,6 +13,7 @@ export class RolesComponent implements OnInit {
   roles: Role[] = [];
   roleForm: FormGroup;
   isEdit: boolean = false;
+  isLoading: boolean = false;
   constructor(
     private roleService: RoleService,
     private fb: FormBuilder 
@@ -49,24 +50,32 @@ export class RolesComponent implements OnInit {
   }
 
   private addRole(): void {
+    this.isLoading = true;
     const { id, ...formData } = this.roleForm.value; // Destructure to exclude 'id'
     this.roleService.AddRole(formData).subscribe({ // Send formData without 'id'
       next: () => {
+        this.isLoading = false;
         Swal.fire('Success', 'Role has been added.', 'success');
         this.afterSave();
       },
-      error: (error) => this.handleError('Error adding role', error)
+      error: (error) => {
+        this.isLoading = false;
+        this.handleError('Error adding role', error)}
     });
   }
   
 
   private updateRole(): void {
+    this.isLoading = true;
     this.roleService.UpdateRole(this.roleForm.value).subscribe({
       next: () => {
+        this.isLoading = false;
         Swal.fire('Success', 'Role has been updated.', 'success');
         this.afterSave();
       },
-      error: (error) => this.handleError('Error updating role', error)
+      error: (error) => {
+        this.isLoading = false;
+        this.handleError('Error updating role', error)}
     });
   }
 

@@ -17,6 +17,7 @@ export class UserComponent implements OnInit {
   roles: Role[] = [];
   userForm: FormGroup;
   isEdit: boolean = false;
+  isLoading: boolean = false;
   constructor(
     private roleService: RoleService,
     private userService: UserService,
@@ -73,14 +74,20 @@ export class UserComponent implements OnInit {
 
 
   addUser(): void {
+    this.isLoading = true;
     const { id, ...formData } = this.userForm.value;
     const submitData = this.prepareSubmitData(formData);
     this.userService.AddUser(submitData).subscribe({
+      
         next: () => {
+          this.isLoading = false;
             Swal.fire('Success', 'User has been added.', 'success');
             this.afterSave();
         },
-        error: (error) => this.handleError('Error adding user', error)
+        
+        error: (error) => {
+          this.isLoading = false;
+          this.handleError('Error adding user', error)}
     });
 }
 

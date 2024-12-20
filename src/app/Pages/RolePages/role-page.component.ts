@@ -29,6 +29,7 @@ export class RolePageComponent {
   selectedRoleId: string | null = null;
   permissionsState: { [pageId: string]: { [permissionId: string]: boolean } } = {};
   roles: Role[] = [];
+  isLoading: boolean = false;
   constructor(private roleService: RoleService,
     private permissionService: PermissionService,
     private pageService: PageService,
@@ -78,16 +79,16 @@ export class RolePageComponent {
 
 
   onRoleChange(event: Event): void {
+    this.isLoading = true;
     const selectElement = event.target as HTMLSelectElement;
     this.selectedRoleId = selectElement.value;
 
     if (!this.selectedRoleId) return;
-
-    // Fetch role permissions by role ID
     this.rolePageService.GetRolePermissionById(this.selectedRoleId).subscribe({
+      
       next: (data) => {
         this.initializePermissionsState();
-      
+        this.isLoading = false;
         data.forEach((rolePermission: any) => {
           const pageId = rolePermission.pageId;
           const permissions = rolePermission.permission;
@@ -102,6 +103,7 @@ export class RolePageComponent {
         });
       },
       error: (error) => {
+        this.isLoading = false;
         console.error('Error fetching rolePage details:', error);
       }
     });

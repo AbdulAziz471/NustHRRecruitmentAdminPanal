@@ -13,6 +13,7 @@ export class PagesComponent {
   modules: any[] = []; 
   pageForm: FormGroup;
   isEdit: boolean = false;
+  isLoading: boolean = false;
   constructor(
     private pageService: PageService,
     private fb: FormBuilder 
@@ -61,23 +62,31 @@ export class PagesComponent {
   }
 
   private addPage(): void {
+    this.isLoading =  true;
     const { id, ...formData } = this.pageForm.value;
     this.pageService.AddPage(formData).subscribe({
       next: () => {
+        this.isLoading =  false;
         Swal.fire('Success', 'Page has been added.', 'success');
         this.afterSave();
       },
-      error: (error) => this.handleError('Error adding Page', error)
+      error: (error) => {
+        this.isLoading =  false;
+        this.handleError('Error adding Page', error)}
     });
   }
 
   private updatePage(): void {
+    this.isLoading =  true;
     this.pageService.UpdatePage(this.pageForm.value).subscribe({
       next: () => {
+        this.isLoading =  false;
         Swal.fire('Success', 'Page has been updated.', 'success');
         this.afterSave();
       },
-      error: (error) => this.handleError('Error updating role', error)
+      error: (error) => {
+        this.isLoading =  false;
+        this.handleError('Error updating role', error)}
     });
   }
 

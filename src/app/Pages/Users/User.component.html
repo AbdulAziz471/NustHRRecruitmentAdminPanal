@@ -79,7 +79,15 @@
         <label class="form-check-label" for="exampleCheck1">Active</label>
       </div>
       <c-col>
-        <button cButton type="submit" class="col-12">{{ isEdit ? 'Update' : 'Create' }} Users</button>
+        <!-- <button cButton type="submit" class="col-12">{{ isEdit ? 'Update' : 'Create' }} Users</button> -->
+        <button type="submit" [disabled]="isLoading" cButton class="col-12">
+          <ng-container *ngIf="!isLoading; else loading">
+            {{ isEdit ? 'Update' : 'Create' }} Users
+          </ng-container>
+          <ng-template #loading>
+            <c-spinner size="sm" color="light"></c-spinner>
+          </ng-template>
+        </button>
       </c-col>
     </form>
   </c-offcanvas-body>

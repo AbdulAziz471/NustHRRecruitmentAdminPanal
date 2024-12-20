@@ -45,7 +45,14 @@
         <input cFormControl id="roleName" type="text" formControlName="name" class="form-control"/>
       </c-col>
       <c-col>
-        <button cButton type="submit" class="col-12">{{ isEdit ? 'Update' : 'Create' }} Role</button>
+        <button type="submit" [disabled]="isLoading" cButton class="col-12">
+          <ng-container *ngIf="!isLoading; else loading">
+            {{ isEdit ? 'Update' : 'Create' }} Role
+          </ng-container>
+          <ng-template #loading>
+            <c-spinner size="sm" color="light"></c-spinner>
+          </ng-template>
+        </button>
       </c-col>
     </form>
   </c-offcanvas-body>
