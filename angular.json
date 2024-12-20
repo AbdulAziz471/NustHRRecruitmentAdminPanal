@@ -1,8 +1,10 @@
 {
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  
   "cli": {
     "analytics": false
   },
+  
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
@@ -35,7 +37,13 @@
             "preserveSymlinks": true,
             "assets": [
               "src/favicon.ico",
-              "src/assets"
+              "src/assets",
+              {
+                "glob": "**/*",
+                "input": "./node_modules/@kolkov/angular-editor/assets/",
+                "output": "./assets/fonts/"
+              }
+              
             ],
             "styles": [
               "src/scss/styles.scss",

@@ -1,6 +1,7 @@
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { IconModule } from '@coreui/icons-angular';
+import { AngularEditorModule } from '@kolkov/angular-editor';
 import { OffcanvasModule } from '@coreui/angular';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SpinnerModule } from '@coreui/angular';
@@ -78,14 +79,9 @@ import {
   DropdownToggleDirective,
   HeaderComponent,
   HeaderNavComponent,
-
-
-
-  
   HeaderTogglerDirective,
   NavItemComponent,
   NavLinkDirective,
-
   SidebarToggleDirective,
   ThemeDirective
 } from '@coreui/angular';
@@ -119,6 +115,7 @@ import { PublishJobsComponent } from './Pages/Job/publish-jobs/publish-jobs.comp
     SidebarModule,
     NgScrollbar,
     RouterLink, 
+    AngularEditorModule,
     RouterOutlet,
     RouterModule.forRoot(routes),
     BadgeComponent,
@@ -158,8 +155,7 @@ import { PublishJobsComponent } from './Pages/Job/publish-jobs/publish-jobs.comp
       useClass: AuthInterceptor,
       multi: true
     }
-    // Add other services and providers here
-  ],
+   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   bootstrap: [AppComponent]
 })

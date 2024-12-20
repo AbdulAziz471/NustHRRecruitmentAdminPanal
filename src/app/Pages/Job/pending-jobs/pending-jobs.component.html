@@ -34,7 +34,7 @@
     </table>
   </c-card>
     
-  <c-offcanvas style="width: 75%;" placement="end" id="OffcanvasStart">
+  <c-offcanvas style="width: 75%; overflow: scroll;" placement="end" id="OffcanvasStart">
     <c-offcanvas-header class="justify-content-between">
       <h5 class="mb-0">Publish Job</h5>
       <button cOffcanvasToggle="OffcanvasStart" cButton color="primary" variant="ghost">
@@ -59,25 +59,29 @@
           <label cLabel for="sJobType">sJobType</label>
           <input cFormControl id="sJobType" type="text" formControlName="sJobType" class="form-control"/>
         </c-col>
-        <c-col md="6">
+        <c-col md="12">
           <label cLabel for="sExperience">sExperience</label>
-          <input cFormControl id="sExperience" type="text" formControlName="sExperience" class="form-control"/>
+          <angular-editor id="sExperience"   formControlName="sExperience"[config]="editorConfig"></angular-editor>
         </c-col>
-        <c-col md="6">
+        <c-col md="12">
           <label cLabel for="sJobDescription">sJobDescription</label>
-          <input cFormControl id="sJobDescription" type="text" formControlName="sJobDescription" class="form-control"/>
+          <!-- <input cFormControl id="sJobDescription" type="text" formControlName="sJobDescription" class="form-control"/> -->
+          <angular-editor formControlName="sJobDescription" [config]="editorConfig"></angular-editor>
         </c-col>
-        <c-col md="6">
+        <c-col md="12">
           <label cLabel for="sSkillsRequired">sSkillsRequired</label>
-          <input cFormControl id="sSkillsRequired" type="text" formControlName="sSkillsRequired" class="form-control"/>
+          <!-- <input cFormControl id="sSkillsRequired" type="text"  class="form-control"/> -->
+          <angular-editor id="sSkillsRequired" formControlName="sSkillsRequired" [config]="editorConfig"></angular-editor>
         </c-col>
-        <c-col md="6">
+        <c-col md="12">
           <label cLabel for="terms">terms</label>
-          <input cFormControl id="terms" type="text" formControlName="terms" class="form-control"/>
+          <!-- <input cFormControl id="terms" type="text" formControlName="terms" class="form-control"/> -->
+          <angular-editor  id="terms" formControlName="terms" [config]="editorConfig"></angular-editor>
         </c-col>
-        <c-col md="6">
+        <c-col md="12">
           <label cLabel for="sQualification">sQualification</label>
-          <input cFormControl id="sQualification" type="text" formControlName="sQualification" class="form-control"/>
+          <!-- <input cFormControl id="sQualification" type="text" formControlName="sQualification" class="form-control"/> -->
+          <angular-editor  id="sQualification"formControlName="sQualification"  [config]="editorConfig"></angular-editor>
         </c-col>
 
         <c-col md="12">
