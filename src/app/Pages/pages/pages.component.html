@@ -47,28 +47,39 @@
   <c-offcanvas-body>
     <form [formGroup]="pageForm" (ngSubmit)="onSubmit()" cForm class="row g-3">
       <c-col md="6">
-        <label cLabel for="PageName">Page/Module Name</label>
-        <input cFormControl id="PageName" type="text" formControlName="title" class="form-control" />
-      </c-col>
-      <c-col md="6">
-        <label cLabel for="PageName">Page URL</label>
-        <input cFormControl id="PageName" type="text" formControlName="pageUrl" class="form-control" />
-      </c-col>
-      <c-col md="12">
-        <label cLabel for="PageName">Description</label>
-        <input cFormControl id="PageName" type="text" formControlName="description" class="form-control" />
-      </c-col>
-      <c-col md="6">
-        <label cLabel for="PageName">Page Preference</label>
-        <input cFormControl id="PageName" type="text" formControlName="preferenceOrder" class="form-control" />
-      </c-col>
-      <c-col md="6">
         <label cLabel for="PageName">Select Module</label>
-        <select class="form-select" formControlName="parentPageId" id="moduleSelect">
+        <select class="form-select" formControlName="parentPageId" id="moduleSelect" 
+        [appValidationStyle]="pageForm.get('parentPageId')"
+        >
           <option value="" disabled>Select Module</option>
           <option *ngFor="let module of modules" [value]="module.id">{{ module.title }}</option>
         </select>
       </c-col>
+      <c-col md="6">
+        <label cLabel for="PageName" class="required">Page/Module Name</label>
+        <input cFormControl id="PageName" type="text" formControlName="title" class="form-control"
+        [appValidationStyle]="pageForm.get('title')"
+         />
+      </c-col>
+      <c-col md="6">
+        <label cLabel for="PageName" >Page URL</label>
+        <input cFormControl id="PageName" type="text" formControlName="pageUrl" class="form-control"
+        [appValidationStyle]="pageForm.get('pageUrl')"
+         />
+      </c-col>
+      <c-col md="6">
+        <label cLabel for="PageName" class="required">Description</label>
+        <input cFormControl id="PageName" type="text" formControlName="description" class="form-control"
+        [appValidationStyle]="pageForm.get('description')"
+        />
+      </c-col>
+      <c-col md="12">
+        <label cLabel for="PageName" class="required">Page Preference</label>
+        <input cFormControl id="PageName" type="text" formControlName="preferenceOrder" class="form-control"
+        [appValidationStyle]="pageForm.get('preferenceOrder')"
+        />
+      </c-col>
+     
       <c-col>
         <!-- <button cButton type="submit" class="col-12">{{ isEdit ? 'Update' : 'Create' }} Page/Module</button> -->
         <button type="submit" [disabled]="isLoading" cButton  class="col-12">

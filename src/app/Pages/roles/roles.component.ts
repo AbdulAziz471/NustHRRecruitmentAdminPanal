@@ -42,7 +42,7 @@ export class RolesComponent implements OnInit {
   
   onSubmit(): void {
     if (!this.roleForm.valid) {
-      Swal.fire('Error', 'Please fill in all required fields.', 'error');
+      this.roleForm.markAllAsTouched(); 
       return;
     }
 

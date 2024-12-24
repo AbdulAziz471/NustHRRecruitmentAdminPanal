@@ -33,7 +33,7 @@
   </table>
 </c-card>
 
-<c-offcanvas style="width: 75%;" placement="end" id="OffcanvasStart">
+<c-offcanvas style="width: 75%; overflow: scroll;" placement="end" id="OffcanvasStart">
   <c-offcanvas-header class="justify-content-between">
     <h5 class="mb-0">Job Details</h5>
     <button cOffcanvasToggle="OffcanvasStart" cButton color="primary" variant="ghost">
@@ -41,6 +41,9 @@
     </button>
   </c-offcanvas-header>
   <c-offcanvas-body>
+
+    <c-card>
+
     <table class="table ">
       <tbody>
         <tr>
@@ -61,15 +64,15 @@
         </tr>
         <tr>
           <th>Experience:</th>
-          <td>{{ selectedJob.sExperience }}</td>
+          <td><span  [innerHTML]="selectedJob.sExperience"></span></td>
         </tr>
         <tr>
           <th>Job Description:</th>
-          <td>{{ selectedJob.sJobDescription }}</td>
+          <td><span  [innerHTML]="selectedJob.sJobDescription"></span></td>
         </tr>
         <tr>
           <th>Skills Required:</th>
-          <td>{{ selectedJob.sSkillsRequired }}</td>
+          <td><span  [innerHTML]="selectedJob.sSkillsRequired"></span></td>
         </tr>
         <tr>
           <th>Terms:</th>
@@ -77,10 +80,12 @@
         </tr>
         <tr>
           <th>Qualification:</th>
-          <td>{{ selectedJob.sQualification }}</td>
+          <td><span  [innerHTML]="selectedJob.sQualification"></span></td>
         </tr>
       </tbody>
     </table>
+  </c-card>
+    
   </c-offcanvas-body>
 </c-offcanvas>
 

@@ -43,7 +43,7 @@ export class PermissionsComponent implements OnInit {
    
   onSubmit(): void {
     if (!this.permissionForm.valid) {
-      Swal.fire('Error', 'Please fill in all required fields.', 'error');
+      this.permissionForm.markAllAsTouched(); 
       return;
     }
 

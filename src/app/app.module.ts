@@ -54,6 +54,7 @@ import {
   TextColorDirective
 } from '@coreui/angular';
 import {AppComponent } from "./app.component"
+import {ValidationStyleDirective } from "../app/Core/Directives/validation-style.directive"
 import { ChartjsComponent } from '@coreui/angular-chartjs';
 import { IconDirective, IconSetService } from '@coreui/icons-angular';
 import { ContainerComponent, CardGroupComponent, FormDirective, InputGroupComponent, InputGroupTextDirective, FormControlDirective } from '@coreui/angular';
@@ -94,6 +95,7 @@ import { PublishJobsComponent } from './Pages/Job/publish-jobs/publish-jobs.comp
   declarations: [
     AppComponent,
     LoginComponent ,
+    ValidationStyleDirective,
     DashboardComponent,
     DefaultLayoutComponent,
     DefaultHeaderComponent,

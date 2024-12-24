@@ -66,7 +66,7 @@ export class UserComponent implements OnInit {
   }
   onSubmit(): void {
     if (!this.userForm.valid) {
-      Swal.fire('Error', 'Please fill in all required fields.', 'error');
+      this.userForm.markAllAsTouched(); 
       return;
     }
     this.isEdit ? this.updateUser() : this.addUser();

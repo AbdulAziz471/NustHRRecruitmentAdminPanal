@@ -54,7 +54,7 @@ export class PagesComponent {
  
   onSubmit(): void {
     if (!this.pageForm.valid) {
-      Swal.fire('Error', 'Please fill in all required fields.', 'error');
+      this.pageForm.markAllAsTouched(); 
       return;
     }
 

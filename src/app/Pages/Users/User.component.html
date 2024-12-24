@@ -47,37 +47,46 @@
   <c-offcanvas-body>
     <form [formGroup]="userForm" (ngSubmit)="onSubmit()" cForm class="row g-3">
       <c-col md="6">
-        <label cLabel for="roleName">Name</label>
-        <input cFormControl id="roleName" type="text" formControlName="sName" class="form-control"/>
+        <label cLabel for="roleName" class="required">Name</label>
+        <input cFormControl id="roleName" type="text"  class="form-control"
+        [appValidationStyle]="userForm.get('sName')" formControlName="sName" placeholder="Enter username" required/>
       </c-col>
       <c-col md="6">
-        <label cLabel for="roleName">Email</label>
-        <input cFormControl id="roleName" type="text" formControlName="sEmail" class="form-control"/>
+        <label cLabel for="roleName" class="required">Email</label>
+        <input cFormControl type="text" formControlName="sEmail" class="form-control"
+        [appValidationStyle]="userForm.get('sEmail')"
+        id="sEmail"  placeholder="Enter Email." required
+        />
       </c-col>
       <c-col md="6" >
-        <label cLabel for="PageName">Select Role</label>
-        <select class="form-select" id="moduleSelect" formControlName="roles">
+        <label cLabel for="PageName" class="required">Select Role</label>
+        <select class="form-select" id="moduleSelect" formControlName="roles"  [appValidationStyle]="userForm.get('roles')">
           <option value="" disabled>Select Role</option>
           <option *ngFor="let role of roles" [value]="role.id">{{ role.name }}</option>
         </select>              
       </c-col>
       <c-col md="6">
-        <label cLabel for="roleName">Employee ID </label>
-        <input cFormControl id="roleName" type="text" formControlName="lEmployeeID" class="form-control"/>
+        <label cLabel for="roleName" class="required">Employee ID </label>
+        <input cFormControl id="roleName" type="text" formControlName="lEmployeeID" class="form-control" 
+        [appValidationStyle]="userForm.get('lEmployeeID')"/>
       </c-col>
       <c-col md="6">
-        <label cLabel for="roleName">Directerate ID</label>
-        <select class="form-select" formControlName="lDirectorateID" aria-label="Default select example">
+        <label cLabel for="roleName" class="required">Directerate ID</label>
+        <select class="form-select" formControlName="lDirectorateID" aria-label="Default select example"[appValidationStyle]="userForm.get('lDirectorateID')">
           <option selected>Select Directerate Id </option>
           <option value="1">One</option>
           <option value="2">Two</option>
           <option value="3">Three</option>
         </select>
       </c-col>
-      <div class="mb-3 form-check">
-        <input type="checkbox"  formControlName="bActive"  class="form-check-input" id="exampleCheck1">
-        <label class="form-check-label" for="exampleCheck1">Active</label>
-      </div>
+      <c-col md="12">
+
+        <div class=" form-check" >
+          
+          <input type="checkbox"  formControlName="bActive"  [appValidationStyle]="userForm.get('bActive')"  class="form-check-input" id="exampleCheck1" required>
+          <label class="form-check-label" for="exampleCheck1" class="required">Active</label>
+        </div>
+      </c-col>
       <c-col>
         <!-- <button cButton type="submit" class="col-12">{{ isEdit ? 'Update' : 'Create' }} Users</button> -->
         <button type="submit" [disabled]="isLoading" cButton class="col-12">
