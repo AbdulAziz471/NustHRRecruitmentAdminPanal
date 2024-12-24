@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../../../Core/Services/Authentication/auth.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+
 import { SessionManagementService } from '../../../../../src/app/Core/Session/session-management.service';
 import Swal from 'sweetalert2';
 import { LoginResponse } from '../../../Core/Interfaces/LoginResponse.interface';
@@ -17,11 +18,6 @@ export class LoginComponent {
   isLoading: boolean = false;
   isLoginFailed: boolean = false;
   isLoggedIn: boolean = false;
-  SignINdata: any = {
-    username: '',
-    password: '',
-
-  };
     constructor(
     private router: Router,
     private loginService: AuthService,
@@ -33,10 +29,11 @@ export class LoginComponent {
       password: ['', [Validators.required]],
     });
   }
-  toggleNewPassword() {
-    this.showNewPassword = !this.showNewPassword;
-  }
   Login(): void {
+    if (this.loginForm.invalid) {
+      this.loginForm.markAllAsTouched(); 
+      return;
+    }
     this.isLoading = true;
     this.loginService.signIn(this.loginForm.value).subscribe(
       (response: LoginResponse) => { 
@@ -55,8 +52,14 @@ export class LoginComponent {
       (error: any) => {
         this.isLoading = false;
   
-        // Handle errors appropriately
-        if (error.name === 'HttpErrorResponse' && error.status === 0) {
+        // Handle specific incorrect username/password error
+        if (error.status === 401) {  // Often, 401 Unauthorized is used for login errors
+          Swal.fire({
+            icon: 'error',
+            title: 'Login Failed',
+            text: 'Invalid username or password. Please try again.'
+          });
+        } else if (error.name === 'HttpErrorResponse' && error.status === 0) {
           Swal.fire({
             icon: 'error',
             title: 'Network Error',
@@ -69,15 +72,21 @@ export class LoginComponent {
             text: 'The provided API key is invalid. Please check your configuration.'
           });
         } else {
+          // Generic error handling
           Swal.fire({
             icon: 'error',
-            title: 'Login Failed',
-            text: 'Invalid email or password.'
+            title: 'Login Error',
+            text: 'An unexpected error occurred. Please try again later.'
           });
         }
       }
     );
-  } 
+  }
+  
+  toggleNewPassword() {
+    this.showNewPassword = !this.showNewPassword;
+  }
+ 
 
   
   ngOnInit(): void {

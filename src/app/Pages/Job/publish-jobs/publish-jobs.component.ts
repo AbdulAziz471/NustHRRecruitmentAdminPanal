@@ -10,34 +10,16 @@ import Swal from 'sweetalert2';
 })
 export class PublishJobsComponent {
 pendingJobs: any[] = [];
-  jobForm!: FormGroup;
-
+selectedJob: any = {};
   constructor(
     private jobService: JobService,
     private fb: FormBuilder
   ) {
-    this.initForm();
   }
 
   ngOnInit(): void {
     this.fetchPendingJobs();
   }
-
-  initForm(): void {
-    this.jobForm = this.fb.group({
-      lQalamJobId: ['', Validators.required],
-      sJobTitle: ['', Validators.required], 
-      sJobType: ['', Validators.required],  
-      sJobLocation: ['', Validators.required],  
-      lMinimumQualificationId: ['', Validators.required],  
-      sExperience: ['', Validators.required],  
-      sJobDescription: ['', Validators.required],  
-      sSkillsRequired: ['', Validators.required],  
-      terms: ['', Validators.required],  
-      sQualification: ['', Validators.required],  
-    });
-  }
-
   fetchPendingJobs(): void {
     this.jobService.GetAllPendingJobs().subscribe(
       data => {
@@ -51,17 +33,6 @@ pendingJobs: any[] = [];
   }
 
   onEditJob(job: any): void {
-    this.jobForm.setValue({
-      lQalamJobId: job.lQalamJobId,
-      sJobTitle: job.sJobTitle,
-      sJobType: job.sJobType,
-      sJobLocation: job.sJobLocation,
-      lMinimumQualificationId: job.lMinimumQualificationId,
-      sExperience: job.sExperience,
-      sJobDescription: job.sJobDescription,
-      sSkillsRequired: job.sSkillsRequired,
-      terms: job.terms,
-      sQualification: job.sQualification
-    });
+    this.selectedJob = job;
   }
 }

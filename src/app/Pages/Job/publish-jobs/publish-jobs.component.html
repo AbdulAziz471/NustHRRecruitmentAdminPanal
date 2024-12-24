@@ -35,50 +35,52 @@
 
 <c-offcanvas style="width: 75%;" placement="end" id="OffcanvasStart">
   <c-offcanvas-header class="justify-content-between">
-    <h5 class="mb-0">Publish Job</h5>
+    <h5 class="mb-0">Job Details</h5>
     <button cOffcanvasToggle="OffcanvasStart" cButton color="primary" variant="ghost">
       <svg cIcon name="cil-arrow-right"></svg>
     </button>
   </c-offcanvas-header>
   <c-offcanvas-body>
-    <form [formGroup]="jobForm" cForm class="row g-3">
-      <c-col md="6">
-        <label cLabel for="sJobTitle">Title</label>
-        <input cFormControl id="sJobTitle" type="text" formControlName="sJobTitle" class="form-control" />
-      </c-col>
-      <c-col md="6">
-        <label cLabel for="sJobLocation">sJobLocation</label>
-        <input cFormControl id="sJobLocation" type="text" formControlName="sJobLocation" class="form-control" />
-      </c-col>
-      <c-col md="6">
-        <label cLabel for="lMinimumQualificationId">lMinimumQualificationId</label>
-        <input cFormControl id="lMinimumQualificationId" type="text" formControlName="lMinimumQualificationId"
-          class="form-control" />
-      </c-col>
-      <c-col md="6">
-        <label cLabel for="sJobType">sJobType</label>
-        <input cFormControl id="sJobType" type="text" formControlName="sJobType" class="form-control" />
-      </c-col>
-      <c-col md="6">
-        <label cLabel for="sExperience">sExperience</label>
-        <input cFormControl id="sExperience" type="text" formControlName="sExperience" class="form-control" />
-      </c-col>
-      <c-col md="6">
-        <label cLabel for="sJobDescription">sJobDescription</label>
-        <input cFormControl id="sJobDescription" type="text" formControlName="sJobDescription" class="form-control" />
-      </c-col>
-      <c-col md="6">
-        <label cLabel for="sSkillsRequired">sSkillsRequired</label>
-        <input cFormControl id="sSkillsRequired" type="text" formControlName="sSkillsRequired" class="form-control" />
-      </c-col>
-      <c-col md="6">
-        <label cLabel for="terms">terms</label>
-        <input cFormControl id="terms" type="text" formControlName="terms" class="form-control" />
-      </c-col>
-      <c-col md="6">
-        <label cLabel for="sQualification">sQualification</label>
-        <input cFormControl id="sQualification" type="text" formControlName="sQualification" class="form-control" />
-      </c-col>
-    </form>
+    <table class="table ">
+      <tbody>
+        <tr>
+          <th>Title:</th>
+          <td>{{ selectedJob.sJobTitle }}</td>
+        </tr>
+        <tr>
+          <th>Location:</th>
+          <td>{{ selectedJob.sJobLocation }}</td>
+        </tr>
+        <tr>
+          <th>Minimum Qualification ID:</th>
+          <td>{{ selectedJob.lMinimumQualificationId }}</td>
+        </tr>
+        <tr>
+          <th>Job Type:</th>
+          <td>{{ selectedJob.sJobType }}</td>
+        </tr>
+        <tr>
+          <th>Experience:</th>
+          <td>{{ selectedJob.sExperience }}</td>
+        </tr>
+        <tr>
+          <th>Job Description:</th>
+          <td>{{ selectedJob.sJobDescription }}</td>
+        </tr>
+        <tr>
+          <th>Skills Required:</th>
+          <td>{{ selectedJob.sSkillsRequired }}</td>
+        </tr>
+        <tr>
+          <th>Terms:</th>
+          <td [innerHTML]="selectedJob.terms"></td>
+        </tr>
+        <tr>
+          <th>Qualification:</th>
+          <td>{{ selectedJob.sQualification }}</td>
+        </tr>
+      </tbody>
+    </table>
   </c-offcanvas-body>
 </c-offcanvas>
+
