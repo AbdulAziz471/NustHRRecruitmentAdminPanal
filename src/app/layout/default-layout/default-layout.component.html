@@ -6,9 +6,9 @@
     <img style="height: 32px;" src="../../../assets/brand/ne2.jpg" alt="">
     </c-sidebar-brand>
   </c-sidebar-header>
+  <!-- <c-sidebar-nav [navItems]="navItems" /> -->
   <ul class="sidebar-nav">
     <li *ngFor="let item of sidebarNav" class="nav-item">
-      <!-- Add routerLinkActive="active" to the main navigation link -->
       <a class="nav-link" [class.nav-group-toggle]="item.subPages && item.subPages.length > 0"
          [routerLink]="item.subPages ? '#' : item.pageUrl"
          (click)="toggleChildrenVisibility(item.id)"
@@ -17,30 +17,23 @@
       </a>
       <ul [class.sub-open]="activeItemId === item.id" class="nav-group-items">
         <li *ngFor="let subItem of item.subPages" class="nav-item">
-          <!-- Also apply routerLinkActive="active" to sub navigation links -->
           <a class="nav-link" [routerLink]="subItem.pageUrl" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
             <span class="nav-icon"><span class="nav-icon-bullet"></span></span>   {{ subItem.title }}
-          
-          
           </a>
         </li>
       </ul>
     </li>
   </ul>
-  
-  
-  
-  
-
-
-
-
-
 </c-sidebar>
 
 <div class="wrapper d-flex flex-column min-vh-100">
   <app-default-header [cShadowOnScroll]="'sm'" class="mb-4 d-print-none header header-sticky p-0 shadow-sm"
     position="sticky" sidebarId="sidebar1" />
+    <!-- <c-breadcrumb class="">
+      <c-breadcrumb-item url="#">Home</c-breadcrumb-item>
+      <c-breadcrumb-item url="#">Library</c-breadcrumb-item>
+      <c-breadcrumb-item [active]="true">Data</c-breadcrumb-item>
+    </c-breadcrumb> -->
   <div class="body flex-grow-1">
     <c-container class="h-auto px-4">
       <router-outlet />

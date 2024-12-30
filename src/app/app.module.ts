@@ -84,13 +84,15 @@ import {
   NavItemComponent,
   NavLinkDirective,
   SidebarToggleDirective,
-  ThemeDirective
+  ThemeDirective,
+  BreadcrumbComponent, BreadcrumbItemComponent
 } from '@coreui/angular';
 import {UserComponent} from './Pages/users/User.component'
 import {RolesComponent} from './Pages/roles/roles.component'
 import { AuthInterceptor } from './Core/Interceptors/auth-interceptor.service';
 import { PagesComponent } from './Pages/pages/pages.component';
 import { PublishJobsComponent } from './Pages/Job/publish-jobs/publish-jobs.component';
+import {EmailTemplateComponent} from './Pages/email-template/email-template.component'
 @NgModule({
   declarations: [
     AppComponent,
@@ -107,6 +109,7 @@ import { PublishJobsComponent } from './Pages/Job/publish-jobs/publish-jobs.comp
     RolePageComponent,
     PendingJobsComponent,
     PublishJobsComponent,
+    EmailTemplateComponent,
  ],
   imports: [
     FormsModule,
@@ -141,6 +144,7 @@ import { PublishJobsComponent } from './Pages/Job/publish-jobs/publish-jobs.comp
     NavItemComponent,
     NavLinkDirective,
     SidebarToggleDirective,
+    BreadcrumbComponent, BreadcrumbItemComponent,
     ThemeDirective,
     GridModule,
     HttpClientModule,

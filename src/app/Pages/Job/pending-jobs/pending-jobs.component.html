@@ -35,14 +35,19 @@
   </c-card>
     
   <c-offcanvas style="width: 75%; overflow: scroll;" placement="end" id="OffcanvasStart">
+    <form [formGroup]="jobForm" (ngSubmit)="onUpdate()" cForm >
     <c-offcanvas-header class="justify-content-between">
       <h5 class="mb-0">Publish Job</h5>
-      <button cOffcanvasToggle="OffcanvasStart" cButton color="primary" variant="ghost">
-        <svg cIcon name="cil-arrow-right"></svg>
-      </button>
-    </c-offcanvas-header>
-    <c-offcanvas-body>
-      <form [formGroup]="jobForm" (ngSubmit)="onUpdate()" cForm class="row g-3">
+      <div>
+        <button cButton type="submit">Publish Job</button>
+        <button cOffcanvasToggle="OffcanvasStart" cButton color="primary" variant="ghost">
+          <svg cIcon name="cil-arrow-right"></svg>
+        </button>
+      </div>
+    </c-offcanvas-header> 
+    <c-offcanvas-body >
+      <div class="row g-3">
+
         <c-col md="6">
           <label cLabel for="sJobTitle">Title</label>
           <input cFormControl id="sJobTitle" type="text" formControlName="sJobTitle" class="form-control"/>
@@ -84,10 +89,12 @@
           <angular-editor  id="sQualification"formControlName="sQualification"  [config]="editorConfig"></angular-editor>
         </c-col>
 
-        <c-col md="12">
+        <!-- <c-col md="12">
           <button cButton type="submit" class="col-12">Publish Job</button>
-        </c-col>
-      </form>
-    </c-offcanvas-body>
+        </c-col> -->
+      </div>
+      
+      </c-offcanvas-body>
+    </form>
   </c-offcanvas>
   

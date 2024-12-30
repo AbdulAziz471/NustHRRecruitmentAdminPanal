@@ -28,6 +28,12 @@ export const navItems: INavData[] = [
         icon: 'nav-icon-bullet'
       },
       {
+        name: 'Email Template',
+        url: '/emailtemplate',
+        iconComponent: { name: 'cil-speedometer' },
+        icon: 'nav-icon-bullet'
+      },
+      {
         name: 'Role Page',
         url: '/RolePage',
         // iconComponent: { name: 'cil-speedometer' },
