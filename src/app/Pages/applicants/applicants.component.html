@@ -1,0 +1,246 @@
+<c-row>
+    <c-col sm="5">
+        <h4 class="card-title mb-0" id="traffic">Applicants List</h4>
+    </c-col>
+</c-row>
+<div class="my-3 mb-5">
+  <div class="d-flex justify-content-between pb-3" >
+
+      <c-row   lg="auto"  class=" align-items-center">
+        <c-col [xs]="12">     
+            <input  cFormControl id="roleName" type="text"  class="form-control" placeholder="Applicates Name " />
+        </c-col>
+        <c-col [xs]="12">
+          <select cSelect class="form-select" id="inlineFormSelectPref">
+            <option>Select Jobs...</option>
+            <option value="1">One</option>
+            <option value="2">Two</option>
+            <option value="3">Three</option>
+          </select>
+        </c-col>  
+        <c-col [xs]="12">
+            <div class=" form-check" >
+                <input type="checkbox"  formControlName="bActive"    class="form-check-input" id="exampleCheck1" >
+                <label class="form-check-label" for="exampleCheck1" class="">Select All Applicants</label>
+            </div>
+        </c-col>
+      </c-row>
+          <button cButton variant="outline" cOffcanvasToggle="OffcanvasStart2" class="float-end">
+                Forword Applicants
+          </button>
+  </div>
+  
+          <c-col md="12" class="mb-2">
+      <!-- <div class="skeleton-row">
+        <div class="skeleton-column"><div class="skeleton-animation"></div></div>
+        <div class="skeleton-column"><div class="skeleton-animation"></div></div>
+        <div class="skeleton-column"><div class="skeleton-animation"></div></div>
+        <div class="skeleton-column"><div class="skeleton-animation"></div></div>
+        <div class="skeleton-column"><div class="skeleton-animation"></div></div>
+      </div> -->
+        <table cTable borderless hover class="mb-0">
+            <thead>
+                <tr>
+                    <th class="bg-body-tertiary">Application Name </th>
+                    <th class="bg-body-tertiary">School</th>
+                    <th class="bg-body-tertiary">Actions</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <div class=" form-check" >
+                            <input type="checkbox"  formControlName="bActive"    class="form-check-input" id="exampleCheck1" >
+                            <label class="form-check-label" for="exampleCheck1" class="">Abdul Aziz</label>
+                        </div>
+                    </td>
+                    <td>
+                        IGIS
+                    </td>
+                    <td class=" d-flex gap-2">
+                        <button cButton variant="outline"(click)="toggleButton()">
+                            Forword
+                        </button>
+
+                        <button cButton variant="outline" cOffcanvasToggle="OffcanvasStart">
+                            View
+                        </button>
+                       
+                    
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </c-col>
+</div>
+
+<c-offcanvas style="width: 60%;" placement="end" id="OffcanvasStart">
+    <c-offcanvas-header class="justify-content-between">
+      <h5 class="mb-0">View Applicant</h5>
+      <button cOffcanvasToggle="OffcanvasStart" cButton color="primary" variant="ghost">
+        <svg cIcon name="cil-arrow-right"></svg>
+      </button>
+    </c-offcanvas-header>
+    <c-offcanvas-body>
+<form>
+ 
+  <c-row class="mb-3">
+    <label cLabel="col" cCol [sm]="2" class="fw-bold custom-label">
+      Email
+    </label>
+    <c-col [sm]="10">
+      <label  > aziztariq2211</label>
+    </c-col>
+  </c-row>
+  <c-row class="mb-3">
+    <label cLabel="col" cCol [sm]="2" class="fw-bold">
+      Password
+    </label>
+    <c-col [sm]="10">
+      <label  > aziztariq2211</label>
+    </c-col>
+  </c-row>
+  <c-row class="mb-3">
+    <label cLabel="col" cCol [sm]="2" class="fw-bold">
+      Email
+    </label>
+    <c-col [sm]="10">
+      <label  > aziztariq2211</label>
+    </c-col>
+  </c-row>
+  <c-row class="mb-3">
+    <label cLabel="col" cCol [sm]="2" class="fw-bold">
+      Password
+    </label>
+    <c-col [sm]="10">
+      <label  > aziztariq2211</label>
+    </c-col>
+  </c-row>
+  <c-row class="mb-3">
+    <label cLabel="col" cCol [sm]="2" class="fw-bold">
+      Email
+    </label>
+    <c-col [sm]="10">
+      <label  > aziztariq2211</label>
+    </c-col>
+  </c-row>
+  <c-row class="mb-3">
+    <label cLabel="col" cCol [sm]="2" class="fw-bold">
+      Password
+    </label>
+    <c-col [sm]="10">
+      <label  > aziztariq2211</label>
+    </c-col>
+  </c-row>
+  <c-row class="mb-3">
+    <label cLabel="col" cCol [sm]="2" class="fw-bold">
+      Email
+    </label>
+    <c-col [sm]="10">
+      <label  > aziztariq2211</label>
+    </c-col>
+  </c-row>
+  <c-row class="mb-3">
+    <label cLabel="col" cCol [sm]="2" class="fw-bold">
+      Password
+    </label>
+    <c-col [sm]="10">
+      <label  > aziztariq2211</label>
+    </c-col>
+  </c-row>
+</form>
+
+
+    </c-offcanvas-body>
+  </c-offcanvas>
+
+
+
+
+  <c-offcanvas style="width: 60%;" placement="end" id="OffcanvasStart2">
+    <c-offcanvas-header class="justify-content-between">
+      <h5 class="mb-0">Forword Applicates</h5>
+      <button cOffcanvasToggle="OffcanvasStart2" cButton color="primary" variant="ghost">
+        <svg cIcon name="cil-arrow-right"></svg>
+      </button>
+    </c-offcanvas-header>
+    <c-offcanvas-body>
+        <div class="my-3 p-2 mb-5">
+            <form cRow lg="auto" [gutter]="3" class="py-3 align-items-center justify-content-between">
+              <div  cRow lg="auto"  class=" align-items-center">
+                <c-col [xs]="12">
+                  <label cLabel class="visually-hidden" for="inlineFormSelectPref">
+                    Preference
+                  </label>
+                  <select cSelect class="form-select" id="inlineFormSelectPref">
+                    <option>Select Schools...</option>
+                    <option value="1">One</option>
+                    <option value="2">Two</option>
+                    <option value="3">Three</option>
+                  </select>
+                </c-col>  
+            </div>
+              
+                <c-col [xs]="12">
+                    <button cButton variant="outline" cOffcanvasToggle="OffcanvasStart2" class="float-end">
+                        Forword
+                      </button>
+                </c-col>
+              </form>
+            <c-col md="12" class="mb-2">
+        
+                <table cTable borderless hover class="mb-0">
+                    <thead>
+                        <tr>
+                            <th class="bg-body-tertiary">Application Name </th>
+                            <th class="bg-body-tertiary">School</th>
+                            <th class="bg-body-tertiary">Actions</th>
+        
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <div class=" form-check" >
+                                    <input type="checkbox"  formControlName="bActive"    class="form-check-input" id="exampleCheck1" >
+                                    <label class="form-check-label" for="exampleCheck1" class="">Abdul Aziz</label>
+                                </div>
+                            </td>
+                            <td>
+                                IGIS
+                            </td>
+                            <td>
+                                <button cButton variant="outline" cOffcanvasToggle="OffcanvasStart">
+                                    View
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </c-col>
+        </div>
+        
+    </c-offcanvas-body>
+  </c-offcanvas>
+
+  <c-modal id="liveDemoModal" [visible]="visible" (visibleChange)="handleModal($event)">
+    <c-modal-header>
+      <h5 cModalTitle>Please Select A School</h5>
+      <button (click)="toggleButton()" cButtonClose></button>
+    </c-modal-header>
+    <c-modal-body  >
+      <select cSelect class="form-select" id="inlineFormSelectPref">
+        <option>Select Schools...</option>
+        <option value="1">One</option>
+        <option value="2">Two</option>
+        <option value="3">Three</option>
+      </select>
+    </c-modal-body>
+    <c-modal-footer>
+      <button (click)="toggleButton()" cButton color="secondary">
+        Close
+      </button>
+      <button cButton color="primary">Applicant Forword</button>
+    </c-modal-footer>
+  </c-modal>

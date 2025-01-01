@@ -4,7 +4,7 @@
     <h4 class="card-title mb-0" id="traffic">RolePages</h4>
   </c-col>
 </c-row>
-<c-card class="my-3 p-2 mb-5">
+<div class="my-3 p-2 mb-5">
   <c-col md="4" class="mb-2">
     <label cLabel for="PageName">Select Role</label>
     <select class="form-select"  id="moduleSelect" (change)="onRoleChange($event)">
@@ -54,11 +54,7 @@
   </table>
   
   
-  <div class="mt-2 w-100">
-    <!-- <button class="float-end" cButton variant="outline" (click)="savePermissions()">
-      Save
-    </button> -->
-    
+  <div class="mt-2 w-100">   
   </div><button class="float-end"  [disabled]="isLoading" cButton variant="outline" (click)="savePermissions()">
     <ng-container *ngIf="!isLoading; else loading">
       Save
@@ -67,4 +63,4 @@
       <c-spinner size="sm" color="light"></c-spinner>
     </ng-template>
   </button>
-</c-card>
+</div>

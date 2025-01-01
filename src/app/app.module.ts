@@ -13,7 +13,8 @@ import {
   AfterViewInit,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
-  ViewChild
+  ViewChild,
+  
 } from '@angular/core';
 import { getStyle } from '@coreui/utils'
 import {  WidgetStatAComponent, TemplateIdDirective, 
@@ -27,7 +28,12 @@ import {
   SidebarFooterComponent,
   SidebarHeaderComponent,
   SidebarNavComponent,
-  SidebarTogglerDirective
+  SidebarTogglerDirective,
+  ModalBodyComponent,
+  ModalComponent,
+  ModalFooterComponent,
+  ModalHeaderComponent,
+  ModalTitleDirective,
 } from '@coreui/angular';
 import { CommonModule } from '@angular/common';
 import { DOCUMENT, NgStyle } from '@angular/common';
@@ -93,6 +99,7 @@ import { AuthInterceptor } from './Core/Interceptors/auth-interceptor.service';
 import { PagesComponent } from './Pages/pages/pages.component';
 import { PublishJobsComponent } from './Pages/Job/publish-jobs/publish-jobs.component';
 import {EmailTemplateComponent} from './Pages/email-template/email-template.component'
+import {ApplicantsComponent} from './Pages/applicants/applicants.component'
 @NgModule({
   declarations: [
     AppComponent,
@@ -110,6 +117,7 @@ import {EmailTemplateComponent} from './Pages/email-template/email-template.comp
     PendingJobsComponent,
     PublishJobsComponent,
     EmailTemplateComponent,
+    ApplicantsComponent
  ],
   imports: [
     FormsModule,
@@ -149,6 +157,11 @@ import {EmailTemplateComponent} from './Pages/email-template/email-template.comp
     GridModule,
     HttpClientModule,
     CommonModule,CardModule,BrowserModule,
+    ModalBodyComponent,
+    ModalComponent,
+    ModalFooterComponent,
+    ModalHeaderComponent,
+    ModalTitleDirective,
     TextColorDirective,ContainerComponent,CardGroupComponent , FormDirective, InputGroupComponent, InputGroupTextDirective, FormControlDirective ,CardComponent, CardBodyComponent, RowComponent, ColComponent, ButtonDirective, IconDirective, ReactiveFormsModule, ButtonGroupComponent, FormCheckLabelDirective, ChartjsComponent, NgStyle, CardFooterComponent, GutterDirective, ProgressBarDirective, ProgressComponent, CardHeaderComponent, TableDirective, AvatarComponent
   ],
   providers: [
